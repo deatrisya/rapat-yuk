@@ -38,10 +38,8 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('js/config.js')}}"></script>
     <script>
-        const base_url = '{{ url('
-        ') }}';
+        const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
-
     </script>
 </head>
 <body>
@@ -55,12 +53,8 @@
                 </main>
                 @include('main.footer')
             </div>
-
         </div>
-
     </div>
-
-
 
     <script src="{{ asset('vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('vendor/libs/popper/popper.js') }}"></script>
