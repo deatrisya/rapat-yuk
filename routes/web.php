@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.admin.dashboard');
 });
+
+Route::resource('room', RoomController::class);
+Route::post('/room-data', [RoomController::class,'data']);
