@@ -29,6 +29,9 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/libs/apex-charts/apex-charts.css') }} " />
 
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
+
+
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -38,8 +41,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('js/config.js')}}"></script>
     <script>
-        const base_url = '{{ url('
-        ') }}';
+        const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
 
     </script>
@@ -64,6 +66,7 @@
 
     <script src="{{ asset('vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('vendor/libs/popper/popper.js') }}"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.js"></script>
     <script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 

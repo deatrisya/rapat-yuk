@@ -60,7 +60,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Dashboard</span>
         </li>
-        <li class="menu-item active">
+        <li class="menu-item">
             <a href="index.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -90,10 +90,10 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Transaksi</span>
         </li>
-        <li class="menu-item">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('bookings.index') ? 'active':'' }}">
+            <a href="{{ route('bookings.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div data-i18n="Booking">Booking List</div>
+                <div data-i18n="Booking">List Booking</div>
             </a>
         </li>
     </ul>
