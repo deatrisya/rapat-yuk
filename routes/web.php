@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BookingListController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,10 @@ Route::get('/', function () {
     return view('pages.admin.dashboard');
 });
 
-Route::resource('bookings',BookingListController::class);
+Auth::routes();
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::resource('bookings', BookingListController::class);
 Route::post('/bookings-data', [BookingListController::class, 'data']);

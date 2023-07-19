@@ -43,7 +43,6 @@
     <script>
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
-
     </script>
 </head>
 <body>
@@ -57,12 +56,8 @@
                 </main>
                 @include('main.footer')
             </div>
-
         </div>
-
     </div>
-
-
 
     <script src="{{ asset('vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('vendor/libs/popper/popper.js') }}"></script>
