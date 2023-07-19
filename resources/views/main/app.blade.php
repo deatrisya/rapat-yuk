@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/libs/apex-charts/apex-charts.css') }} " />
 
     <!-- Page CSS -->
-
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet"/>
     <!-- Helpers -->
     <script src="{{ asset('vendor/js/helpers.js')}}"></script>
 
@@ -38,8 +38,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('js/config.js')}}"></script>
     <script>
-        const base_url = '{{ url('
-        ') }}';
+        const base_url = '{{ url('')}}';
         const web_token = '{{ csrf_token() }}';
 
     </script>
@@ -82,7 +81,14 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.js"></script>
+
+    //SweetAlert
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    
     @yield('main-js')
+    @include('sweetalert::alert')
 
 </body>
 </html>
