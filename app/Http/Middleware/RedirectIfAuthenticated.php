@@ -18,11 +18,17 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $guards = empty($guards) ? null : $guards[0];
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect('/dashboard');
+        if (Auth::guard($guards)->check()) {
+            $role = Auth::user()->role;
+            switch ($role) {
+                case 'admin':
+                    return redirect('/admin/dashboard');
+                case 'pegawai':
+                    return redirect('/pegawai/dashboard');
+                default:
+                    return redirect('/home');
             }
         }
 
