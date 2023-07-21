@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('booking_lists', function (Blueprint $table) {
             $table->id();
             $table->integer('room_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('status', ['DISETUJUI', 'DIGUNAKAN', 'DITOLAK', 'EXPIRED', 'BATAL', 'SELESAI', 'PENDING']);
             $table->string('photo')->nullable();
             $table->text('resume')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use DateTime;
 use Illuminate\Console\View\Components\Alert;
+use Illuminate\Support\Facades\DB;
 
 class BookingListController extends Controller
 {
@@ -26,7 +27,9 @@ class BookingListController extends Controller
 
     public function data(Request $request)
     {
-        $booking = BookingList::where('id', '!=', null);
+        $booking = BookingList::selectRaw('booking_lists.*, users.name as user_name')
+            ->join('users', 'users.id', '=', 'booking_lists.user_id');
+
         if ($request->from_date) {
             $booking->whereDate('booking_lists.date', '>=', Carbon::parse($request->from_date));
         }
@@ -44,6 +47,9 @@ class BookingListController extends Controller
                 $act['data'] = $row;
 
                 return view('pages.admin.booking.options', $act)->render();
+            })
+            ->editColumn('user_name', function ($user) {
+                return $user->user_name;
             })
             ->escapeColumns([])
             ->make(true);

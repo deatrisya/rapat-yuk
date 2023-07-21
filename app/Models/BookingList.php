@@ -20,18 +20,8 @@ class BookingList extends Model
         'status',
     ];
 
-    // protected $appends = ['status_badge'];
-    // public function getStatusBadgeAttribute()
-    // {
-    //     $status = $this->attributes['status'];
-    //     $badgeClass = '';
-
-    //     if ($status == 'Pending') {
-    //         $badgeClass = 'badge bg-label-primary';
-    //     } elseif ($status == 'Disetujui') {
-    //         $badgeClass = 'badge bg-label-success';
-    //     }
-
-    //     return '<span class="' . $badgeClass . '">' . $status . '</span>';
-    // }
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

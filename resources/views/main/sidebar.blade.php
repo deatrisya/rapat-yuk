@@ -94,6 +94,9 @@
             <a href="{{ route('bookings.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div data-i18n="Booking">List Booking</div>
+                @if ($pendingBookingCount > 0)
+                <span class="badge bg-primary ms-2">{{ $pendingBookingCount }}</span>
+                @endif
             </a>
         </li>
     </ul>

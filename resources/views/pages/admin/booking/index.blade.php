@@ -90,7 +90,8 @@
                     "data": "room_id",
                 },
                 {
-                    "data": "user_id",
+                    "data": "user_name",
+                    "name": "users.name",
                 },
                 {
                     "data": "date",
