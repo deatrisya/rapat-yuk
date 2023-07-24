@@ -43,9 +43,11 @@
     <script>
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
+
     </script>
 </head>
 <body>
+    @include('sweetalert::alert')
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             @include('main.sidebar')
@@ -80,7 +82,48 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    @yield('main-js')
 
+    <script>
+        function initApproveButton() {
+            $('.approve-button').click(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Setujui permintaan ruang rapat",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#52a807',
+                    cancelButtonColor: '#8c8c8c',
+                    confirmButtonText: 'Ya, setujui!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#approve-form').submit();
+                    }
+                });
+            });
+        }
+
+        function initRejectButton() {
+            $('.reject-button').click(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Menolak permintaan ruang rapat",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#8c8c8c',
+                    confirmButtonText: 'Ya, tolak!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#reject-form').submit();
+                    }
+                });
+            })
+        }
+
+    </script>
+
+    @yield('main-js')
 </body>
 </html>

@@ -132,7 +132,11 @@
                 {
                     "data": "options",
                 }
-            ]
+            ],
+            "drawCallback": function(settings) {
+                initApproveButton();
+                initRejectButton();
+            },
         });
     }
 
