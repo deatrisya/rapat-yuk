@@ -60,7 +60,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Dashboard</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"">
             <a href="index.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -72,8 +72,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Data Master</span>
         </li>
-        <li class="menu-item">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('room.index') ? 'active' : '' }}"" >
+            <a href="{{ route('room.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div data-i18n="Room">List Room</div>
             </a>

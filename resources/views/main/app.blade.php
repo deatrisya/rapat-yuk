@@ -33,7 +33,7 @@
 
 
     <!-- Page CSS -->
-
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
     <!-- Helpers -->
     <script src="{{ asset('vendor/js/helpers.js')}}"></script>
 
@@ -120,6 +120,33 @@
                     }
                 });
             })
+        }
+
+        function initDeleteButton() {
+            $('.delete-button').click(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Data tidak dapat dikembalikan",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = document.createElement('form');
+                        form.action = $(this).attr('href');
+                        form.method = 'POST';
+                        form.innerHTML = `
+        @csrf
+        @method('DELETE')
+        `;
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            });
         }
 
     </script>

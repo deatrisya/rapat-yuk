@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BookingListController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +22,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 
 Route::resource('bookings', BookingListController::class);
 Route::post('/bookings-data', [BookingListController::class, 'data']);
+
+
+Route::resource('room', RoomController::class);
+Route::post('/room-data', [RoomController::class, 'data']);

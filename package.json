@@ -23,5 +23,8 @@
     },
     "dependencies": {
         "sweetalert2": "^11.7.18"
+    },
+    "dependencies": {
+        "sweetalert2": "^11.7.18"
     }
 }
