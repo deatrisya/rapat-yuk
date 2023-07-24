@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/fonts/boxicons.css') }} " />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/css/core.css')}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('css/demo.css') }} " />
 
@@ -31,21 +32,24 @@
 
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="{{ asset('vendor/css/pages/page-auth.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="{{ asset('vendor/js/helpers.js')}}"></script>
+    <script src="{{ asset('vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('js/config.js')}}"></script>
+    <script src="{{ asset('js/config.js') }}"></script>
     <script>
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
     </script>
 </head>
+
 <body>
+    @include('sweetalert::alert')
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             @include('main.sidebar')
@@ -80,7 +84,36 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script>
+        function initDeleteButton() {
+            $('.delete-button').click(function(event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form = document.createElement('form');
+                        form.action = $(this).attr('href');
+                        form.method = 'POST';
+                        form.innerHTML = `
+    @csrf
+    @method('DELETE')
+    `;
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            });
+        }
+    </script>
     @yield('main-js')
 
 </body>
+
 </html>
