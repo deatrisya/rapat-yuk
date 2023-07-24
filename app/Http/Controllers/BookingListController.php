@@ -27,8 +27,9 @@ class BookingListController extends Controller
 
     public function data(Request $request)
     {
-        $booking = BookingList::selectRaw('booking_lists.*, users.name as user_name')
-            ->join('users', 'users.id', '=', 'booking_lists.user_id');
+        $booking = BookingList::selectRaw('booking_lists.*, users.name as user_name, rooms.room_name as room_name')
+            ->join('users', 'users.id', '=', 'booking_lists.user_id')
+            ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id');
 
         if ($request->from_date) {
             $booking->whereDate('booking_lists.date', '>=', Carbon::parse($request->from_date));
@@ -50,6 +51,9 @@ class BookingListController extends Controller
             })
             ->editColumn('user_name', function ($user) {
                 return $user->user_name;
+            })
+            ->editColumn('room_name', function ($room) {
+                return $room->room_name;
             })
             ->escapeColumns([])
             ->make(true);
