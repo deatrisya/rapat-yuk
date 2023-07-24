@@ -42,7 +42,7 @@
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
-                                @if(isset($admin) && count($admin) > 0)
+                                {{-- @if(isset($admin) && count($admin) > 0)
                                 @foreach ($admin as $adm)
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ $adm->name }}</span>
@@ -51,7 +51,28 @@
                                 @endforeach
                                 @else
                                 <p>No users found.</p>
-                                @endif
+                                @endif --}}
+                                {{-- @if ($roles == 'admin')
+                                    @foreach ($admin as $adm)
+                                    <div class="flex-grow-1">
+                                        <span class="fw-semibold d-block">{{ $adm->name }}</span>
+                                        <small class="text-muted">{{ $adm->role }}</small>
+                                    </div>
+                                    @endforeach
+
+                                @else
+                                @foreach ($pegawai as $pgw)
+                                <div class="flex-grow-1">
+                                    <span class="fw-semibold d-block">{{ $pgw->name }}</span>
+                                    <small class="text-muted">{{ $pgw->role }}</small>
+                                </div>
+                                @endforeach
+                                @endif --}}
+
+                                <div class="flex-grow-1">
+                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                    <small class="text-muted">{{ Auth::user()->role }}</small>
+                                </div>
                             </div>
                         </a>
                     </li>

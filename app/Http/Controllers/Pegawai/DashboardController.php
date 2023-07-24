@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardController extends Controller
 {
@@ -21,6 +21,7 @@ class DashboardController extends Controller
     public function index()
     {
         $roles = User::where('role', 'pegawai')->get();
+        Alert::toast('Selamat datang! 🙇‍♂️', 'success')->position('top-end')->autoClose(5000);
         return view('pages.pegawai.dashboard', compact('roles'));
     }
 }

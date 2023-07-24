@@ -1,6 +1,7 @@
 @extends('layouts.navbar-app')
 @section('title','Login')
 @section('content')
+@include('sweetalert::alert')
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -59,7 +60,7 @@
                     <!-- /Logo -->
                     <h4 class="mb-2">Welcome to Si Rapat! 👋</h4>
                     <p class="mb-4">Please sign-in to your account and start the adventure</p>
-                    <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
+                    <form id="formLogin" class="mb-3" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="email" class="form-label">{{ __('Email Address') }}</label>
@@ -96,7 +97,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

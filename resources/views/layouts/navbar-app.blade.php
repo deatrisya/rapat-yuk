@@ -29,7 +29,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }} " />
     <link rel="stylesheet" href="{{ asset('vendor/css/pages/page-auth.css') }}" />
 
-
+    <!-- Sweetalert2 css -->
+    {{-- <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}"> --}}
 
     <!-- Page CSS -->
 
@@ -39,10 +40,14 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('js/config.js')}}"></script>
+
+    <!-- import script sweetalert2 -->
+    {{-- <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script> --}}
 </head>
 <body>
 
     @yield('content')
+    @include('sweetalert::alert')
 
     <script src="{{ asset('vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('vendor/libs/popper/popper.js') }}"></script>
