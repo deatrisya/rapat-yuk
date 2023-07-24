@@ -146,7 +146,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $user->delete();
-        return redirect()->route('users.index');
+        if ($user->bookingList()->exists()) {
+            return redirect()->route('users.index')->with('toast_error', 'Data tidak dapat dihapus');
+        } else {
+            $user->delete();
+            return redirect()->route('users.index');
+        }
     }
 }
