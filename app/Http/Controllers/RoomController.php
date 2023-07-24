@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RoomController extends Controller
 {
@@ -21,7 +22,12 @@ class RoomController extends Controller
 
     public function data(Request $request)
     {
-        $room = Room::where('id', '!=', null);
+        $room = Room::where('id', '!=', null)->orderBy('created_at', 'desc');
+
+
+        if ($request->capacity) {
+            $room->where('capacity', $request->capacity);
+        }
 
         return datatables($room)
             ->addIndexColumn()
@@ -33,6 +39,8 @@ class RoomController extends Controller
             ->escapeColumns([])
             ->make(true);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -56,10 +64,11 @@ class RoomController extends Controller
             $request->validate(
                 [
                     'room_name' => 'required|string',
-                    'facility' =>'required|string',
+                    'facility' => 'required|string',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',
-                ],[],
+                ],
+                [],
 
             );
 
@@ -99,7 +108,6 @@ class RoomController extends Controller
     {
         $room = Room::find($id);
         return view('pages.admin.rooms.edit', compact('room'));
-
     }
 
     /**
@@ -115,10 +123,11 @@ class RoomController extends Controller
             $request->validate(
                 [
                     'room_name' => 'required|regex:/^[\pL\s]+$/u',
-                    'facility' =>'required',
+                    'facility' => 'required',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',
-                ],[],
+                ],
+                [],
 
             );
 
@@ -147,6 +156,6 @@ class RoomController extends Controller
     {
         $room = Room::find($id);
         $room->delete();
-        return redirect()->route('room.index')->with(['message' => 'Data berhasil dihapus.']);
+        return redirect()->route('room.index')->with('success', 'Data berhasil dihapus.');
     }
 }

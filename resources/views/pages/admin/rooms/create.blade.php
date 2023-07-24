@@ -15,7 +15,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="inputState" >Nama Ruangan</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Ruang Rapat Bromo" />
+                                <input type="text" class="form-control" name="room_name" id="room_name" placeholder="Ruang Rapat Bromo" value="{{old('room_name')}}"/>
                                 @error('room_name')
                                     <small class="text-danger room_name">{{ $message }}</small>
                                 @enderror
@@ -24,7 +24,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-message">Fasilitas</label>
                             <div class="col-sm-8">
-                                <textarea id="basic-default-message" class="form-control" name="facility" id="facility" placeholder="AC, Proyektor, Papan Tulis dan Kabel HDMI" aria-describedby="basic-icon-default-message2"></textarea>
+                                <textarea id="basic-default-message" class="form-control" name="facility" id="facility" value="{{old('facility')}}"  placeholder="AC, Proyektor, Papan Tulis dan Kabel HDMI" aria-describedby="basic-icon-default-message2">{{ old('facility') }}</textarea>
                                 @error('facility')
                                     <small class="text-danger facility">{{ $message }}</small>
                                 @enderror
@@ -33,7 +33,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-phone">Kapasitas</label>
                             <div class="col-sm-3">
-                                <input type="text" id="basic-default-phone" class="form-control phone-mask" name="capacity" id="capacity" placeholder="6" aria-describedby="basic-default-phone" />
+                                <input type="text" id="basic-default-phone" class="form-control phone-mask" name="capacity" id="capacity" value="{{old('capacity')}}" placeholder="6" aria-describedby="basic-default-phone" />
                                 @error('capacity')
                                     <small class="text-danger capacity">{{ $message }}</small>
                                 @enderror

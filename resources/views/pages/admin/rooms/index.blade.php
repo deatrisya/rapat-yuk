@@ -9,9 +9,31 @@
     <!-- Hoverable Table rows -->
     <div class="card">
         <h5 class="card-header">Data Ruang Rapat</h5>
-        <div class="table-responsive text-nowrap">
-            <div class="card-body">
-                <a class="btn btn-primary" href="{{ route('room.create') }}"> </i> Tambah Data </a> <br> <br>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <a class="btn btn-primary" href="{{ route('room.create') }}"> </i> Tambah Data Rapat</a> <br> <br>
+                <!-- Tambahkan elemen select untuk filter kapasitas -->
+                <div class="row">
+                    <div class="col-md-6 mb-6 mb-4 position-relative d-flex align-items-center">
+                        <div class="d-flex align-items-center ">
+                            <div class="me-3">
+                                <label for="floatingSelectGrid">Pilih Kapasistas</label>
+                                <select class="form-select" id="capacity" name="capacity">
+                                    <option value="">-- Pilih Kapasistas --</option>
+                                    <option value="10"> 10 orang</option>
+                                    <option value="20"> 20 orang</option>
+                                    <option value="30"> 30 orang</option>
+                                </select>
+                            </div>
+                            <div class="mt-auto align-items-start">
+                                <a href="javascript:;" class="btn mb-0 btn-primary text-sm" id="filterBtn">
+                                    Cari
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="table table-hover" id="roomData">
                     <thead>
                         <tr>
@@ -20,7 +42,7 @@
                             <th>Fasilitas</th>
                             <th>Kapasitas</th>
                             <th>Ketersediaan</th>
-                            <th>Actions</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +58,9 @@
 
 @section('main-js')
 <script>
-    filterDate();
+    document.getElementById('filterBtn').addEventListener('click', function() {
+        filterDate(); // Panggil fungsi filterDate() ketika tombol "Filter" ditekan
+    });
 
     function filterDate(params) {
         $('#roomData').DataTable({
@@ -50,6 +74,7 @@
                 "type": "post",
                 "data": {
                     _token: web_token,
+                    capacity: $('#capacity').val(),
                 }
             },
             "columns": [{
@@ -81,5 +106,6 @@
             ]
         });
     }
+    filterDate();
 </script>
 @endsection
