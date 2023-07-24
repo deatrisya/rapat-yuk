@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\BookingListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,3 +42,7 @@ Route::prefix('/')
 // Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard');
 // Route::get('/pegawai/dashboard', [App\Http\Controllers\HomeController::class, 'show'])->name('pegawai.dashboard');
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::resource('bookings', BookingListController::class);
+Route::post('/bookings-data', [BookingListController::class, 'data']);
