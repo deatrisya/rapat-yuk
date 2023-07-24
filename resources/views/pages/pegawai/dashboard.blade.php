@@ -1,23 +1,11 @@
 @extends('main.app')
 @section('title', 'Dashboard Pegawai')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard Pegawai') }}</div>
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        @component('components.card')
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in pegawai!') }}
-                </div>
-            </div>
-        </div>
+        @endcomponent
     </div>
 </div>
 @endsection
