@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/fonts/boxicons.css') }} " />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/css/core.css')}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('css/demo.css') }} " />
 
@@ -31,21 +32,23 @@
 
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="{{ asset('vendor/css/pages/page-auth.css') }}" />
 
     <!-- Page CSS -->
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
     <!-- Helpers -->
-    <script src="{{ asset('vendor/js/helpers.js')}}"></script>
+    <script src="{{ asset('vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('js/config.js')}}"></script>
+    <script src="{{ asset('js/config.js') }}"></script>
     <script>
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
 
     </script>
 </head>
+
 <body>
     @include('sweetalert::alert')
     <div class="layout-wrapper layout-content-navbar">
@@ -154,4 +157,5 @@
 
     @yield('main-js')
 </body>
+
 </html>

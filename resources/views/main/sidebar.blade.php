@@ -78,8 +78,8 @@
                 <div data-i18n="Room">List Room</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('users.index') ? 'active': '' }}">
+            <a href="{{ route('users.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="User">User</div>
             </a>

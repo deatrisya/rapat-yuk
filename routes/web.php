@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BookingListController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +29,11 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::resource('bookings', BookingListController::class);
 Route::post('/bookings-data', [BookingListController::class, 'data']);
 
-
 Route::resource('room', RoomController::class);
 Route::post('/room-data', [RoomController::class, 'data']);
+
+Route::resource('users', UserController::class);
+Route::post('/users-data', [UserController::class, 'data']);
 
 Route::prefix('/')
     ->get('/', [DashboardController::class, 'index'])
