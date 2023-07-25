@@ -17,11 +17,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Penanggung Jawab</label>
-                                    <input type="text" class="form-control" id="user_id" name="user_id" value="{{$booking->user_id}}" readonly />
+                                    <input type="text" class="form-control" id="user_id" name="user_id" value="{{$booking->users->name}}" readonly />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-company">Ruangan</label>
-                                    <input type="text" class="form-control" id="room_id" name="room_id" value="{{$booking->room_id}}" readonly/>
+                                    <input type="text" class="form-control" id="room_id" name="room_id" value="{{$booking->rooms->room_name}}" readonly/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-email">Tanggal</label>

@@ -53,6 +53,7 @@
             @include('main.sidebar')
             <div class="layout-page">
                 @include('main.navbar')
+                @include('sweetalert::alert')
                 <main class="content-wrapper" id="main">
                     @yield('content')
                 </main>

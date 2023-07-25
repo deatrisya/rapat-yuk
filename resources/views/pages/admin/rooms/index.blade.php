@@ -14,9 +14,9 @@
                 <a class="btn btn-primary mb-3" href="{{ route('room.create') }}"> </i> Tambah Ruang</a>
                 <div class="row align-items-end mb-4">
                     <div class="col-md-3">
-                        <label for="floatingSelectGrid">Pilih Kapasistas</label>
+                        <label for="floatingSelectGrid">Pilih Kapasitas</label>
                         <select class="form-select" id="capacity" name="capacity">
-                            <option value="">-- Pilih Kapasistas --</option>
+                            <option value="">Pilih Kapasitas</option>
                             <option value="10"> 10 orang</option>
                             <option value="20"> 20 orang</option>
                             <option value="30"> 30 orang</option>

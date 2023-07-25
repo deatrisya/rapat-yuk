@@ -42,9 +42,36 @@
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
+                                {{-- @if(isset($admin) && count($admin) > 0)
+                                @foreach ($admin as $adm)
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                    <span class="fw-semibold d-block">{{ $adm->name }}</span>
+                                    <small class="text-muted">{{ $adm->role }}</small>
+                                </div>
+                                @endforeach
+                                @else
+                                <p>No users found.</p>
+                                @endif --}}
+                                {{-- @if ($roles == 'admin')
+                                    @foreach ($admin as $adm)
+                                    <div class="flex-grow-1">
+                                        <span class="fw-semibold d-block">{{ $adm->name }}</span>
+                                        <small class="text-muted">{{ $adm->role }}</small>
+                                    </div>
+                                    @endforeach
+
+                                @else
+                                @foreach ($pegawai as $pgw)
+                                <div class="flex-grow-1">
+                                    <span class="fw-semibold d-block">{{ $pgw->name }}</span>
+                                    <small class="text-muted">{{ $pgw->role }}</small>
+                                </div>
+                                @endforeach
+                                @endif --}}
+
+                                <div class="flex-grow-1">
+                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                    <small class="text-muted">{{ Auth::user()->role }}</small>
                                 </div>
                             </div>
                         </a>
@@ -53,35 +80,13 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <span class="d-flex align-items-center align-middle">
-                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                <span class="flex-grow-1 align-middle">Billing</span>
-                                <span
-                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
-                        </a>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <a class="dropdown-item" href="{{ route('login') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </li>

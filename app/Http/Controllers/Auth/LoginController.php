@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -20,12 +23,24 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/dashboard';
+    // /**
+    //  * Where to redirect users after login.
+    //  *
+    //  * @var string
+    //  */
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    // public function redirectTo() {
+    //     $role = Auth::user()->role;
+    //     switch ($role) {
+    //         case 'admin':
+    //             return '/dashboard';
+    //         case 'pegawai':
+    //             return '/dashboard';
+    //         default:
+    //             return '/home';
+    //     }
+    // }
 
     /**
      * Create a new controller instance.
@@ -35,5 +50,12 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
+    }
+
+
+    protected function loggedOut(Request $request) {
+        Alert::toast('Sampai jumpa! 👋👋👋', 'info')->position('top-end')->autoClose(5000);
+        return redirect('/login');
     }
 }

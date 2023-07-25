@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->text('resume')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
         });
     }
