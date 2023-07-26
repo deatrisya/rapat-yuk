@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\RoomController as AdminRoomController;
 use App\Http\Controllers\pegawai\RoomController as PegawaiRoomController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,17 +31,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/users-data', [AdminUserController::class, 'data']);
 });
 
-<<<<<<< HEAD
-Route::resource('room', AdminRoomController::class);
-Route::post('/room-data', [AdminRoomController::class,'data']);
-
-Route::resource('room-pegawai', PegawaiRoomController::class);
-Route::post('/rooms-pegawai-data', [PegawaiRoomController::class,'data']);
-=======
 // Rute untuk user
 Route::middleware(['auth', 'role:pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiDashboardController::class, 'index'])->name('pegawai.dashboard');
     Route::resource('employee/booking', PegawaiBookingListController::class);
     Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
 });
->>>>>>> 0a853e7d5f8dc6306a843473999f06d38a5bcac1
