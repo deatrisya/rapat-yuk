@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\RoomController;
+use App\Http\Controllers\admin\RoomController as AdminRoomController;
+use App\Http\Controllers\pegawai\RoomController as PegawaiRoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,8 @@ Route::get('/', function () {
     return view('pages.admin.dashboard');
 });
 
-Route::resource('room', RoomController::class);
-Route::post('/room-data', [RoomController::class,'data']);
+Route::resource('room', AdminRoomController::class);
+Route::post('/room-data', [AdminRoomController::class,'data']);
+
+Route::resource('room-pegawai', PegawaiRoomController::class);
+Route::post('/rooms-pegawai-data', [PegawaiRoomController::class,'data']);
