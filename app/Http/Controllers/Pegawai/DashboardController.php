@@ -9,7 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class DashboardController extends Controller
 {
     //
-/**
+    /**
      * Create a new controller instance.
      *
      * @return void

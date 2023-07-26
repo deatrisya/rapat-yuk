@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\RoomController;
+use App\Http\Controllers\Admin\BookingListController as AdminBookingListController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+
+use App\Http\Controllers\Pegawai\BookingListController as PegawaiBookingListController;
+use App\Http\Controllers\Pegawai\DashboardController as PegawaiDashboardController;
+
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\BookingListController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,36 +22,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('pages.admin.dashboard');
-// });
-
 Auth::routes();
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+// Rute untuk admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('bookings', AdminBookingListController::class);
+    Route::post('/bookings-data', [AdminBookingListController::class, 'data']);
 
-Route::resource('bookings', BookingListController::class);
-Route::post('/bookings-data', [BookingListController::class, 'data']);
+    Route::resource('room', AdminRoomController::class);
+    Route::post('/room-data', [AdminRoomController::class, 'data']);
 
-Route::resource('room', RoomController::class);
-Route::post('/room-data', [RoomController::class, 'data']);
+    Route::resource('users', AdminUserController::class);
+    Route::post('/users-data', [AdminUserController::class, 'data']);
+});
 
-Route::resource('users', UserController::class);
-Route::post('/users-data', [UserController::class, 'data']);
-
-Route::prefix('/')
-    ->get('/', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'which.home'])
-    ->name('pegawai.dashboard');
-
-Route::prefix('/')
-    ->middleware(['auth', 'is.pegawai'])
-    ->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('pegawai.dashboard');
-    });
-
-Route::prefix('admin')
-    ->middleware(['auth', 'is.admin'])
-    ->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    });
+// Rute untuk user
+Route::middleware(['auth', 'role:pegawai'])->group(function () {
+    Route::get('/dashboard', [PegawaiDashboardController::class, 'index'])->name('pegawai.dashboard');
+    Route::resource('employee/booking', PegawaiBookingListController::class);
+    Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
+});

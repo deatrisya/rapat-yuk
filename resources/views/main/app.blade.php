@@ -45,20 +45,18 @@
     <script>
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
-
     </script>
 </head>
 
 <body>
-    @include('sweetalert::alert')
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             @include('main.sidebar')
             <div class="layout-page">
                 @include('main.navbar')
-                @include('sweetalert::alert')
                 <main class="content-wrapper" id="main">
                     @yield('content')
+                    @include('sweetalert::alert')
                 </main>
                 @include('main.footer')
             </div>
