@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
@@ -64,17 +64,18 @@ class RoomController extends Controller
             $request->validate(
                 [
                     'room_name' => 'required|string',
-                    'facility' => 'required|string',
+                    'facility' => 'required|array',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',
                 ],
                 [],
 
             );
+            $facilityString = implode(', ', $request->input('facility', []));
 
             $room = new Room;
             $room->room_name = $request->room_name;
-            $room->facility = $request->facility;
+            $room->facility = $facilityString;
             $room->capacity = $request->capacity;
             $room->availability = $request->availability;
             $room->save();
@@ -123,7 +124,7 @@ class RoomController extends Controller
             $request->validate(
                 [
                     'room_name' => 'required|regex:/^[\pL\s]+$/u',
-                    'facility' => 'required',
+                    'facility' => 'required|array',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',
                 ],
@@ -131,9 +132,11 @@ class RoomController extends Controller
 
             );
 
+            $facilityString = implode(', ', $request->input('facility', []));
+
             $room = Room::find($id);
             $room->room_name = $request->room_name;
-            $room->facility = $request->facility;
+            $room->facility = $facilityString;
             $room->capacity = $request->capacity;
             $room->availability = $request->availability;
             $room->save();
