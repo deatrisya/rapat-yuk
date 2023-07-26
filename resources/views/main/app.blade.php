@@ -32,26 +32,26 @@
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
 
 
-    <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="{{ asset('vendor/js/helpers.js')}}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('js/config.js')}}"></script>
-    <script>
-        const base_url = '{{ url('') }}';
-        const web_token = '{{ csrf_token() }}';
-    </script>
+        <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+        <script src="{{ asset('js/config.js')}}"></script>
+        <script>
+            const base_url = '{{ url('') }}';
+            const web_token = '{{ csrf_token() }}';
+            </script>
 </head>
 <body>
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             @include('main.sidebar')
             <div class="layout-page">
-                @include('main.navbar')
                 @include('sweetalert::alert')
+                @include('main.navbar')
                 <main class="content-wrapper" id="main">
                     @yield('content')
                 </main>

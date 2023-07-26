@@ -1,3 +1,4 @@
+
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -31,6 +32,11 @@
                     aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
             </li> --}}
 
+            <!-- Tombol Pesan -->
+            <li class="nav-item me-2">
+                <a href="#" class="btn btn-primary">@yield('text')</a>
+            </li>
+
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -49,8 +55,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                    <small class="text-muted">{{ Auth::user()->role }}</small>
+                                    {{-- <span class="fw-semibold d-block">{{ Auth::user()->name }}</span> --}}
+                                    {{-- <small class="text-muted">{{ Auth::user()->role }}</small> --}}
                                 </div>
                             </div>
                         </a>

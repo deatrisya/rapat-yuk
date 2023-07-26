@@ -6,7 +6,7 @@
                 <div class="card-wrap col">
                     <div class="card-body">
                         <div class="card-title">
-                            <span class="fw-semibold d-block mb-1">@isset($title) {{ $title }} @endisset</span>
+                            <p class="fw-semibold mb-1">@isset($title) {{ $title }} @endisset</p>
                             <h3 class="card-title mb-2">@isset($nominal) {{ $nominal }} @endisset</h3>
                             {{-- <div class="dropdown">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

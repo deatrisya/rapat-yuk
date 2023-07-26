@@ -1,7 +1,7 @@
 @extends('layouts.navbar-app')
 @section('title','Login')
 @section('content')
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">

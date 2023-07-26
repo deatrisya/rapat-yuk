@@ -87,7 +87,8 @@
                     "name": "id",
                 },
                 {
-                    "data": "room_id",
+                    "data": "room_name",
+                    "name": "rooms.room_name"
                 },
                 {
                     "data": "user_name",
