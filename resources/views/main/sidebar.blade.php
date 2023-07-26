@@ -45,7 +45,7 @@
                     </g>
                 </svg>
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Rapat Yuk</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -55,46 +55,90 @@
 
     <div class="menu-inner-shadow"></div>
 
-    <ul class="menu-inner py-1">
-        <!-- Dashboard -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Dashboard</span>
-        </li>
-        <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"">
-            <a href="index.html" class="menu-link">
+    {{-- Admin --}}
+    @if (Auth::user()->role == 'admin')
+        <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Dashboard</span>
+            </li>
+            <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+            <a href=" {{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
-            </a>
-        </li>
+                </a>
+            </li>
 
-        <!-- Layouts -->
+            <!-- Layouts -->
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Data Master</span>
-        </li>
-        <li class="menu-item {{ request()->routeIs('room.index') ? 'active' : '' }}"" >
-            <a href="{{ route('room.index') }}" class="menu-link">
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Data Master</span>
+            </li>
+            <li class="menu-item {{ request()->routeIs('room.index') ? 'active' : '' }}" >
+                    <a href=" {{ route('room.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div data-i18n="Room">List Room</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="User">User</div>
-            </a>
-        </li>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->routeIs('users.index') ? 'active': '' }}">
+                <a href="{{ route('users.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="User">User</div>
+                </a>
+            </li>
 
-        {{-- Transaksi --}}
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Transaksi</span>
+            </li>
+            <li class="menu-item {{ request()->routeIs('bookings.index') ? 'active':'' }}">
+                <a href="{{ route('bookings.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <div data-i18n="Booking">List Booking</div>
+                    @if ($pendingBookingCount > 0)
+                    <span class="badge bg-primary ms-2">{{ $pendingBookingCount }}</span>
+                    @endif
+                </a>
+            </li>
+        </ul>
+    @endif
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Transaksi</span>
-        </li>
-        <li class="menu-item">
-            <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div data-i18n="Booking">Booking List</div>
-            </a>
-        </li>
-    </ul>
+    {{-- Pegawai --}}
+    @if (Auth::user()->role == 'pegawai')
+        <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Dashboard</span>
+            </li>
+            <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+                <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+                </a>
+            </li>
+
+            <!-- Layouts -->
+
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Data Master</span>
+            </li>
+            <li class="menu-item {{ request()->routeIs('room.index') ? 'active' : '' }}">
+                <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                <div data-i18n="Room">List Ruangan</div>
+                </a>
+            </li>
+
+            {{-- Transaksi --}}
+
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Transaksi</span>
+            </li>
+            <li class="menu-item {{ request()->routeIs('bookings.index') ? 'active':'' }}">
+                <a href="{{ route('booking.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-calendar"></i>
+                    <div data-i18n="Booking">My Booking List</div>
+                </a>
+            </li>
+        </ul>
+    @endif
 </aside>

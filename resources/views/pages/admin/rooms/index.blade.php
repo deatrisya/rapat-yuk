@@ -11,26 +11,19 @@
         <h5 class="card-header">Data Ruang Rapat</h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <a class="btn btn-primary" href="{{ route('room.create') }}"> </i> Tambah Data Rapat</a> <br> <br>
-                <!-- Tambahkan elemen select untuk filter kapasitas -->
-                <div class="row">
-                    <div class="col-md-6 mb-6 mb-4 position-relative d-flex align-items-center">
-                        <div class="d-flex align-items-center ">
-                            <div class="me-3">
-                                <label for="floatingSelectGrid">Pilih Kapasistas</label>
-                                <select class="form-select" id="capacity" name="capacity">
-                                    <option value="">-- Pilih Kapasistas --</option>
-                                    <option value="10"> 10 orang</option>
-                                    <option value="20"> 20 orang</option>
-                                    <option value="30"> 30 orang</option>
-                                </select>
-                            </div>
-                            <div class="mt-auto align-items-start">
-                                <a href="javascript:;" class="btn mb-0 btn-primary text-sm" id="filterBtn">
-                                    Cari
-                                </a>
-                            </div>
-                        </div>
+                <a class="btn btn-primary mb-3" href="{{ route('room.create') }}"> </i> Tambah Ruang</a>
+                <div class="row align-items-end mb-4">
+                    <div class="col-md-3">
+                        <label for="floatingSelectGrid">Pilih Kapasitas</label>
+                        <select class="form-select" id="capacity" name="capacity">
+                            <option value="">Pilih Kapasitas</option>
+                            <option value="10"> 10 orang</option>
+                            <option value="20"> 20 orang</option>
+                            <option value="30"> 30 orang</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn mb-0 btn-primary" onclick="setTable()">Cari</button>
                     </div>
                 </div>
 
@@ -58,11 +51,8 @@
 
 @section('main-js')
 <script>
-    document.getElementById('filterBtn').addEventListener('click', function() {
-        filterDate(); // Panggil fungsi filterDate() ketika tombol "Filter" ditekan
-    });
-
-    function filterDate(params) {
+    setTable();
+    function setTable(params) {
         $('#roomData').DataTable({
             "processing": true,
             "serverSide": true,
@@ -92,7 +82,7 @@
                 },
                 {
                     "data": "availability",
-                    "render": function(data, type, row) {
+                    "render": function (data, type, row) {
                         if (data == 0) {
                             return "Tidak Tersedia";
                         } else {
@@ -103,9 +93,12 @@
                 {
                     "data": "options"
                 }
-            ]
+            ],
+            "drawCallback": function(settings) {
+                initDeleteButton();
+            },
         });
     }
-    filterDate();
+
 </script>
 @endsection
