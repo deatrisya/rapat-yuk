@@ -30,18 +30,6 @@ class LoginController extends Controller
     //  */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    // public function redirectTo() {
-    //     $role = Auth::user()->role;
-    //     switch ($role) {
-    //         case 'admin':
-    //             return '/dashboard';
-    //         case 'pegawai':
-    //             return '/dashboard';
-    //         default:
-    //             return '/home';
-    //     }
-    // }
-
     /**
      * Create a new controller instance.
      *
@@ -50,12 +38,12 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-
     }
 
 
-    protected function loggedOut(Request $request) {
-        Alert::toast('Sampai jumpa! 👋👋👋', 'info')->position('top-end')->autoClose(5000);
+    protected function loggedOut(Request $request)
+    {
+        Alert::toast('Sampai jumpa! 👋👋👋', 'info')->position('top-end')->autoClose(3000);
         return redirect('/login');
     }
 }
