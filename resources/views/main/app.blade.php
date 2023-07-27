@@ -50,10 +50,10 @@
         <div class="layout-container">
             @include('main.sidebar')
             <div class="layout-page">
-                @include('sweetalert::alert')
                 @include('main.navbar')
                 <main class="content-wrapper" id="main">
                     @yield('content')
+                    {{-- @include('sweetalert::alert') --}}
                 </main>
                 @include('main.footer')
             </div>

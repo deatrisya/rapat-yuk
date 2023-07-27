@@ -19,11 +19,11 @@
             @slot('bg_color', 'bg-info')
             @slot('icon', 'bx bxs-home ')
             @slot('title', 'Pesanan Saya')
-            @slot('nominal', '1')
+            @slot('nominal', $jumlahPesanan)
             @slot('ruang', 'Ruang Welirang')
             @endcomponent
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             @component('components.card')
             @slot('bg_color', 'bg-warning')
             @slot('icon', 'bx bxs-user-account ')
@@ -31,15 +31,16 @@
             @slot('nominal', 'lorem')
             @slot('ruang', 'Ruang Welirang')
             @endcomponent
-        </div>
-        <div class="col">
-            <div class="card p-3">
-                <div id="calendar" class="card p-3" data-book="{{ json_encode($events) }}">
-                    <script src="{{ asset('js/calendar.js') }}"></script>
+        </div> --}}
+        <div class="row">
+            <div class="col">
+                <div class="card p-2">
+                    <div id="calendar" class="card-body p-2" data-book="{{ json_encode($events) }}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{{ asset('js/calendar.js') }}"></script>
 <div class="content-backdrop fade"></div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BookingList;
+use App\Models\Room;
 use App\Models\User;
 
 class DashboardController extends Controller
@@ -21,8 +22,10 @@ class DashboardController extends Controller
     public function index()
     {
         $roles = User::where('role', 'admin')->get();
-        $book_lists = BookingList::select('description', 'start_time', 'end_time', 'date')->get();
+        $jumlahPengguna = User::count();
+        $jumlahRuang = Room::count();
 
+        $book_lists = BookingList::select('description', 'start_time', 'end_time', 'date')->get();
         $events = $book_lists->map(function ($book_list){
             $time = [
                 'time_start' => $book_list->start_time,
@@ -39,6 +42,22 @@ class DashboardController extends Controller
 
         //dd($events);
 
-        return view('pages.admin.dashboard', compact('roles', 'events'));
+        // $messages = [];
+        // foreach ($roles as $admin) {
+        //     $messages[] = [
+        //         "header" => "Pemisi Bapak/Ibu {$admin->name}",
+        //         "body" => "Berikut ini ruangan yang menunggu persetujuan anda: "
+        //     ];
+        //     $admin->notify(new RoomAgreement($messages));
+        //     dd('Done');
+        // }
+
+        return view('pages.admin.dashboard', compact('roles', 'jumlahPengguna', 'jumlahRuang', 'events'));
     }
+
+    // public function notif(){
+    //     $roles = User::where('role', 'admin')->get();
+
+
+    // }
 }

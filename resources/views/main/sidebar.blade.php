@@ -61,7 +61,7 @@
             <span class="menu-header-text">Dashboard</span>
         </li>
         <li class="menu-item">
-            <a href="index.html" class="menu-link">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Pegawai;
 use App\Http\Controllers\Controller;
 use App\Models\BookingList;
 use App\Models\User;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardController extends Controller
 {
@@ -22,6 +21,7 @@ class DashboardController extends Controller
     public function index()
     {
         $roles = User::where('role', 'pegawai')->get();
+        $jumlahPesanan = BookingList::count();
         $book_lists = BookingList::select('description', 'start_time', 'end_time', 'date')->get();
 
         $events = $book_lists->map(function ($book_list){
@@ -37,7 +37,7 @@ class DashboardController extends Controller
                 'end' => $end_date,
             ];
         });
-        Alert::toast('Selamat datang! 🙇‍♂️', 'success')->position('top-end')->autoClose(5000);
-        return view('pages.pegawai.dashboard', compact('roles', 'events'));
+        //Alert::toast('Selamat datang! 🙇‍♂️', 'success')->position('top-end')->autoClose(5000);
+        return view('pages.pegawai.dashboard', compact('roles', 'jumlahPesanan', 'events'));
     }
 }

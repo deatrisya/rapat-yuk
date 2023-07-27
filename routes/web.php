@@ -37,11 +37,12 @@ Route::prefix('/')
     ->middleware(['auth', 'is.admin'])
     ->group(function(){
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+        //Route::get('/notif', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
         //Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'showRole'])->name('admin.dashboard');
     });
     // Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard');
-// Route::get('/pegawai/dashboard', [App\Http\Controllers\HomeController::class, 'show'])->name('pegawai.dashboard');
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::get('/pegawai/dashboard', [App\Http\Controllers\HomeController::class, 'show'])->name('pegawai.dashboard');
+    //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
     Route::resource('bookings', BookingListController::class);
