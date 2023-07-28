@@ -133,12 +133,12 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Transaksi</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('bookings.index') ? 'active':'' }}">
+            {{-- <li class="menu-item {{ request()->routeIs('bookings.index') ? 'active':'' }}">
                 <a href="{{ route('booking.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-calendar"></i>
                     <div data-i18n="Booking">My Booking List</div>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     @endif
 </aside>

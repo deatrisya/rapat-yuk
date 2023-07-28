@@ -53,6 +53,13 @@
         </div>
     </div>
     <!--/ Hoverable Table rows -->
+
+    <div class="card">
+        <div class="card-header">Kalendar</div>
+        <div class="card-body">
+            
+        </div>
+    </div>
 </div>
 @endsection
 
