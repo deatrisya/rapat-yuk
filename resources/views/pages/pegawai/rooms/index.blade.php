@@ -54,12 +54,12 @@
     </div>
     <!--/ Hoverable Table rows -->
 
-    <div class="card">
+    <div class="card mt-5">
         <div class="card-header">Kalendar</div>
-        <div class="card-body">
-            
+        <div id="calendar" class="card-body" data-book="{{ json_encode($events) }}">
         </div>
     </div>
+    <script src="{{ asset('js/calendar.js') }}"></script>
 </div>
 @endsection
 

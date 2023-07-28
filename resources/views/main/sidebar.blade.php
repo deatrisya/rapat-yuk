@@ -110,7 +110,7 @@
                 <span class="menu-header-text">Dashboard</span>
             </li>
             <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
-                <a href="#" class="menu-link">
+                <a href="{{ route('pegawai.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
                 </a>
@@ -122,7 +122,7 @@
                 <span class="menu-header-text">Data Master</span>
             </li>
             <li class="menu-item {{ request()->routeIs('room.index') ? 'active' : '' }}">
-                <a href="#" class="menu-link">
+                <a href="{{ route('room-pegawai.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div data-i18n="Room">List Ruangan</div>
                 </a>
