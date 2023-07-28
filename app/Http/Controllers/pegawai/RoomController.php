@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\pegawai;
 use App\Http\Controllers\Controller;
-use App\Models\BookingList;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -15,21 +15,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $book_lists = BookingList::select('description', 'start_time', 'end_time', 'date')->get();
-        $events = $book_lists->map(function ($book_list){
-            $time = [
-                'time_start' => $book_list->start_time,
-                'time_end' => $book_list->end_time,
-            ];
-            $start_date = $book_list->date."T".$time['time_start']."Z";
-            $end_date = $book_list->date."T".$time['time_end']."Z";
-            return [
-                'title' => $book_list->description,
-                'start' => $start_date,
-                'end' => $end_date,
-            ];
-        });
-        return view('pages.pegawai.rooms.index', compact('events'));
+        return view('pages.pegawai.rooms.index');
     }
 
     public function data(Request $request)
@@ -78,13 +64,23 @@ class RoomController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $room = Room::findOrFail($id);
+        $book_list = $room->booking()->get();
+        $events = $book_list->map(function ($book_list){
+            $startTime = Carbon::parse($book_list->date.$book_list->start_time);
+            $endTime = Carbon::parse($book_list->date.$book_list->end_time);
+
+            return [
+                'title' => $book_list->description,
+                'start' => $startTime->toISOString(), // Convert to ISO format for fullcalendar
+                'end' => $endTime->toISOString(),
+            ];
+        });
         $facilities = explode(', ', $room->facility);
-        return view('pages.pegawai.rooms.read', compact('room', 'facilities'));
+        return view('pages.pegawai.rooms.read', compact('room', 'facilities', 'events'));
     }
 
     /**

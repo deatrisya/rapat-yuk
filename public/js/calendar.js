@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             minute: "2-digit",
             meridiem: false,
         },
+        contentHeight: 200,
         events: events,
     });
     calendar.render();

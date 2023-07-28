@@ -2,7 +2,7 @@
 @section('title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Detail Ruangan</h4>
+    <h4 class="fw-bold py-2 mb-3"><span class="text-muted fw-light"></span> Detail Ruangan</h4>
     <div class="row">
         <div class="col-md-6">
             <div class="card mb-4">
@@ -47,12 +47,11 @@
                         <button class="btn btn-primary " type="button">Booking</button>
                     </div>
                 </div>
-
             </div>
         </div>
-        <div id="calendar" class="card p-3 col-md-6">
-            <script src="{{ asset('js/calendar.js') }}"></script>
+        <div id="calendar" class="card mb-4 col-md-6 p-2" data-book="{{ json_encode($events) }}">
         </div>
+        <script src="{{ asset('js/calendar.js') }}"></script>
         <!-- <div class="container">
             <div class="panel panel-primary">
                 <div class="panel-heading">
