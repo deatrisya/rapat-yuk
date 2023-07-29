@@ -24,8 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Rute untuk admin
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('bookings', AdminBookingListController::class);
     Route::post('/bookings-data', [AdminBookingListController::class, 'data']);
@@ -37,9 +36,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/users-data', [AdminUserController::class, 'data']);
 });
 
-// Rute untuk user
-Route::middleware(['auth', 'role:pegawai'])->group(function () {
+Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiDashboardController::class, 'index'])->name('pegawai.dashboard');
     Route::resource('employee/booking', PegawaiBookingListController::class);
     Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
+    Route::get('/updateStatus', [PegawaiBookingListController::class, 'updateStatus'])->name('updateStatus');
 });

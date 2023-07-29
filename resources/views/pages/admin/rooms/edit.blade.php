@@ -2,7 +2,7 @@
 @section('title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Form Tambah Data Ruangan</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Form Edit Data Ruangan</h4>
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
@@ -10,7 +10,7 @@
                     <h5 class="mb-0">Edit Data Ruangan</h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action=" {{ route ('room.update', $room->id) }} ">
+                    <form method="POST" action=" {{ route('room.update', $room->id) }} ">
                         @method('PUT')
                         @csrf
                         <div class="row mb-3">

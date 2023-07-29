@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardController extends Controller
 {
@@ -22,7 +21,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $roles = User::where('role', 'admin')->get();
+        $roles = User::where('role', 'Admin')->get();
         Session::flash('toast_message', 'Selamat datang! 🙇‍♂️');
         return view('pages.admin.dashboard', compact('roles'));
     }

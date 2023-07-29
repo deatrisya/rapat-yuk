@@ -56,7 +56,7 @@
     <div class="menu-inner-shadow"></div>
 
     {{-- Admin --}}
-    @if (Auth::user()->role == 'admin')
+    @if (Auth::user()->role == 'Admin')
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-header small text-uppercase">
@@ -103,7 +103,7 @@
     @endif
 
     {{-- Pegawai --}}
-    @if (Auth::user()->role == 'pegawai')
+    @if (Auth::user()->role == 'Pegawai')
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-header small text-uppercase">

@@ -36,8 +36,11 @@
 
     <!-- Page CSS -->
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css">
     <!-- Helpers -->
     <script src="{{ asset('vendor/js/helpers.js') }}"></script>
+
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -45,6 +48,7 @@
     <script>
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
+
     </script>
 </head>
 
@@ -84,7 +88,25 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                tabsize: 10,
+                height: 100,
+                toolbar: [
+                    ['style', ['style','bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert',['link']],
+                    ['height', ['height']]
+                ],
+            });
+        });
+    </script>
     <script>
         function initApproveButton() {
             $('.approve-button').click(function (event) {
@@ -149,6 +171,25 @@
                     }
                 });
             });
+        }
+
+        function initCancelButton() {
+            $('.cancel-button').click(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Membatalkan permintaan ruang rapat",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#8c8c8c',
+                    confirmButtonText: 'Ya, tolak!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#cancel-form').submit();
+                    }
+                });
+            })
         }
 
     </script>
