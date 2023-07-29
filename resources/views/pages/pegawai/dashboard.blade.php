@@ -1,23 +1,46 @@
 @extends('main.app')
 @section('title', 'Dashboard Pegawai')
+@section('text', 'Pesan Ruang')
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard Pegawai') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in pegawai!') }}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            @component('components.card')
+            @slot('bg_color', 'bg-success')
+            @slot('icon', 'bx bxs-home-heart ')
+            @slot('title', 'Ruang Tersedia')
+            @slot('nominal', '3')
+            @slot('ruang', 'Ruang Welirang')
+            @endcomponent
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            @component('components.card')
+            @slot('bg_color', 'bg-info')
+            @slot('icon', 'bx bxs-home ')
+            @slot('title', 'Pesanan Saya')
+            @slot('nominal', $jumlahPesanan)
+            @slot('ruang', 'Ruang Welirang')
+            @endcomponent
+        </div>
+        {{-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            @component('components.card')
+            @slot('bg_color', 'bg-warning')
+            @slot('icon', 'bx bxs-user-account ')
+            @slot('title', 'lorem')
+            @slot('nominal', 'lorem')
+            @slot('ruang', 'Ruang Welirang')
+            @endcomponent
+        </div> --}}
+        <div class="row">
+            <div class="col">
+                <div class="card p-2">
+                    <div id="calendar" class="card-body p-2" data-book="{{ json_encode($events) }}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{{ asset('js/calendar.js') }}"></script>
+<div class="content-backdrop fade"></div>
 @endsection
