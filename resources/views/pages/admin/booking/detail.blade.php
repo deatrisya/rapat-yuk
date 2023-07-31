@@ -68,11 +68,13 @@
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Bukti Foto</label>
                             <br>
-                            <img src="" alt="bukti-foto" height="100px" width="100px">
+                            @if ($booking->photo !== null)
+                            <img height="100px" width="100px" src="{{asset('storage/'.$booking->photo)}}">
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Resume</label>
-                            <textarea class="form-control" readonly rows="10">{{ $booking->description }}</textarea>
+                            {!! $booking->resume !!}
                         </div>
                     </form>
                 </div>

@@ -48,6 +48,7 @@ class BookingListController extends Controller
             ->addColumn('options', function ($row) {
                 $act['edit'] = route('booking.edit', ['booking' => $row->id]);
                 $act['show'] = route('booking.show', ['booking' => $row->id]);
+                // $act['cancel'] = route('booking.updateStatus',['booking' => $row->id]);
                 $act['data'] = $row;
 
                 return view('pages.pegawai.booking.options', $act)->render();
@@ -154,8 +155,6 @@ class BookingListController extends Controller
     {
         $booking = BookingList::findOrFail($id);
         $booking->status = $request->status;
-
-
         $booking->save();
         return redirect()->route('booking.index');
     }

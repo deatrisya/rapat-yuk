@@ -62,7 +62,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Dashboard</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <a href=" {{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -109,7 +109,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Dashboard</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->routeIs('pegawai.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('pegawai.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -122,7 +122,7 @@
                 <span class="menu-header-text">Data Master</span>
             </li>
             <li class="menu-item {{ request()->routeIs('room.index') ? 'active' : '' }}">
-                <a href="#" class="menu-link">
+                <a href="{{ route('room-pegawai.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-ul"></i>
                 <div data-i18n="Room">List Ruangan</div>
                 </a>
@@ -130,7 +130,7 @@
 
             {{-- Transaksi --}}
 
-            <li class="menu-header small text-uppercase">
+        <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Transaksi</span>
             </li>
             <li class="menu-item {{ request()->routeIs('bookings.index') ? 'active':'' }}">

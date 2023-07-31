@@ -8,16 +8,6 @@
                         <div class="card-title">
                             <p class="fw-semibold mb-1">@isset($title) {{ $title }} @endisset</p>
                             <h3 class="card-title mb-2">@isset($nominal) {{ $nominal }} @endisset</h3>
-                            {{-- <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    @isset($nominal) {{ $nominal }} @endisset
-                                </a>
-                                <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">Action</a></li>
-                                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

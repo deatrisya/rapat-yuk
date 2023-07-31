@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <meta name="description" content="" />
-
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon/favicon.ico') }}" />
 
@@ -113,6 +112,7 @@
         function initApproveButton() {
             $('.approve-button').click(function (event) {
                 event.preventDefault();
+                var rowId = $(this).data('row-id');
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
                     text: "Setujui permintaan ruang rapat",
@@ -123,7 +123,7 @@
                     confirmButtonText: 'Ya, setujui!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#approve-form').submit();
+                        $('#approve-form-'+rowId).submit();
                     }
                 });
             });
@@ -132,6 +132,7 @@
         function initRejectButton() {
             $('.reject-button').click(function (event) {
                 event.preventDefault();
+                var rowId = $(this).data('row-id');
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
                     text: "Menolak permintaan ruang rapat",
@@ -142,7 +143,7 @@
                     confirmButtonText: 'Ya, tolak!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#reject-form').submit();
+                        $('#reject-form-'+rowId).submit();
                     }
                 });
             })
@@ -178,6 +179,7 @@
         function initCancelButton() {
             $('.cancel-button').click(function (event) {
                 event.preventDefault();
+                var rowId = $(this).data('row-id');
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
                     text: "Membatalkan permintaan ruang rapat",
@@ -185,16 +187,18 @@
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#8c8c8c',
-                    confirmButtonText: 'Ya, tolak!'
+                    confirmButtonText: 'Ya, cancel!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#cancel-form').submit();
+                        $('#cancel-form-'+rowId).submit();
                     }
                 });
             })
         }
 
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
     @yield('main-js')
 </body>

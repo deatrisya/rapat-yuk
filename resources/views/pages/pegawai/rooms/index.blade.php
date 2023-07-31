@@ -11,23 +11,30 @@
         <h5 class="card-header">Data Ruang Rapat</h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <a class="btn btn-primary mb-3" href="{{ route('room.create') }}"> </i> Tambah Ruang</a>
-                <div class="row align-items-end mb-4">
-                    <div class="col-md-3">
-                        <label for="floatingSelectGrid">Pilih Kapasitas</label>
-                        <select class="form-select" id="capacity" name="capacity">
-                            <option value="">Pilih Kapasitas</option>
-                            <option value="10"> 10 orang</option>
-                            <option value="20"> 20 orang</option>
-                            <option value="30"> 30 orang</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn mb-0 btn-primary" onclick="setTable()">Cari</button>
+                <!-- <a class="btn btn-primary" href="{{ route('room.create') }}"> </i> Tambah Data Rapat</a> <br> <br> -->
+                <!-- Tambahkan elemen select untuk filter kapasitas -->
+                <div class="row">
+                    <div class="col-md-6 mb-6 mb-4 position-relative d-flex align-items-center">
+                        <div class="d-flex align-items-center ">
+                            <div class="me-3">
+                                <label for="floatingSelectGrid">Pilih Kapasitas</label>
+                                <select class="form-select" id="capacity" name="capacity">
+                                    <option value="">Pilih Kapasitas</option>
+                                    <option value="10"> 10 orang</option>
+                                    <option value="20"> 20 orang</option>
+                                    <option value="30"> 30 orang</option>
+                                </select>
+                            </div>
+                            <div class="mt-auto align-items-start">
+                                <a href="javascript:;" class="btn mb-0 btn-primary text-sm" id="filterBtn">
+                                    Cari
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <table class="table table-hover" id="roomData">
+                <table class="table table-hover" id="roomData1">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -46,20 +53,24 @@
         </div>
     </div>
     <!--/ Hoverable Table rows -->
+
 </div>
 @endsection
 
 @section('main-js')
 <script>
-    setTable();
-    function setTable(params) {
-        $('#roomData').DataTable({
+    document.getElementById('filterBtn').addEventListener('click', function() {
+        filterDate(); // Panggil fungsi filterDate() ketika tombol "Filter" ditekan
+    });
+
+    function filterDate(params) {
+        $('#roomData1').DataTable({
             "processing": true,
             "serverSide": true,
             "responsive": true,
             "destroy": true,
             "ajax": {
-                "url": base_url + "/room-data",
+                "url": base_url + "/rooms-pegawai-data",
                 "dataType": "json",
                 "type": "post",
                 "data": {
@@ -86,12 +97,9 @@
                 {
                     "data": "options"
                 }
-            ],
-            "drawCallback": function(settings) {
-                initDeleteButton();
-            },
+            ]
         });
     }
-
+    filterDate();
 </script>
 @endsection

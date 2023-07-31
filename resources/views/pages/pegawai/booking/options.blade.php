@@ -2,11 +2,11 @@
     <div class="ms-auto">
 
        <div class="d-flex">
-        <form action="{{ route('updateStatus',$data->id) }}" method="post" class="me-1" id="cancel-form">
+        <form action="{{ route('booking.updateStatus',$data->id) }}" method="post" class="me-1" id="cancel-form-{{ $data->id }}">
             @if ($data->status !== 'BATAL')
                 @method('PUT')
                 @csrf
-                <button class="btn btn-icon btn-danger cancel-button"><i class="bx bx-x"></i></button>
+                <button class="btn btn-icon btn-danger cancel-button" data-row-id="{{ $data->id }}"><i class="bx bx-x"></i></button>
                 <input type="hidden" name="status" value="BATAL">
             @endif
         </form>

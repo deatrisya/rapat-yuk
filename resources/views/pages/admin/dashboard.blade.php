@@ -9,7 +9,7 @@
             @slot('bg_color', 'bg-success')
             @slot('icon', 'bx bxs-home-heart ')
             @slot('title', 'Ruang Tersedia')
-            @slot('nominal', '3')
+            @slot('nominal', $jumlahKetersediaan)
             @slot('ruang', 'Ruang Welirang')
             @endcomponent
         </div>

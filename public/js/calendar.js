@@ -1,13 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     var calendarEl = document.getElementById("calendar");
     var book_lists = JSON.parse(calendarEl.getAttribute("data-book"));
-    console.log(book_lists);
-    console.log(Array.isArray([book_lists]));
-
-    // book_lists.map((item) => {
-    //     console.log(item);
-    // });
-
     var events = [];
     book_lists.forEach(function (item) {
         events.push({
@@ -23,17 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         initialView: "dayGridMonth",
         themeSystem: "bootstrap5",
-        //aspectRatio: 1,
-        //contentHeight: 400,
-
         titleFormat: { year: "numeric", month: "short" },
         eventTimeFormat: {
             hour: "numeric",
             minute: "2-digit",
             meridiem: false,
         },
+        contentHeight: 200,
         events: events,
     });
-
     calendar.render();
 });

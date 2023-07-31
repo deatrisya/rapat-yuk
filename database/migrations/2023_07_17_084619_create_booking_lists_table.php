@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('user_id');
-            // $table->integer('room_id');
-            // $table->integer('user_id');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');

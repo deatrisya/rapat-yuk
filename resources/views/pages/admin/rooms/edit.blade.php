@@ -25,8 +25,50 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="inputState">Fasilitas</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" name="facility" id="facility" placeholder="AC, Proyektor, Papan Tulis dan Kabel HDMI" aria-describedby="basic-icon-default-message2">{{ $room->facility }}</textarea>
-
+                                <div class="d-flex">
+                                    <div class="me-4">
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" value="Wifi" id="facility" name="facility[]"  @if(in_array('Wifi', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Wifi </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="AC" id="facility" name="facility[]" @if(in_array('AC', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> AC </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Papan Tulis" id="facility" name="facility[]" @if(in_array('Papan Tulis', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Papan Tulis </label>
+                                        </div>
+                                    </div>
+                                    <div class="ms-4">
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" value="Meja" id="facility" name="facility[]" @if(in_array('Meja', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Meja </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Kursi" id="facility" name="facility[]" @if(in_array('Kursi', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Kursi </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Proyektor" id="facility" name="facility[]" @if(in_array('Proyektor', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Proyektor </label>
+                                        </div>
+                                    </div>
+                                    <div class="ms-4">
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" value="Spidol" id="facility" name="facility[]" @if(in_array('Spidol', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Spidol </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Penghapus Papan" id="facility" name="facility[]" @if(in_array('Penghapus Papan', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Penghapus Papan </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Jam" id="facility" name="facility[]" @if(in_array('Jam', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Jam </label>
+                                        </div>
+                                    </div>
+                                </div>
                                 @error('facility')
                                 <small class="text-danger facility">{{ $message }}</small>
                                 @enderror

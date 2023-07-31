@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -22,8 +23,15 @@ class RoomController extends Controller
 
     public function data(Request $request)
     {
-        $room = Room::where('id', '!=', null)->orderBy('created_at', 'desc');
-
+        $room = Room::selectRaw('rooms.*, booking_lists.status')
+            ->leftJoin(
+                'booking_lists',
+                function ($leftJoin) {
+                    $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
+                        ->whereDate('booking_lists.date', '=', Carbon::now())
+                        ->where('booking_lists.status', '=', 'DISETUJUI');
+                }
+            )->groupBy('rooms.id');
 
         if ($request->capacity) {
             $room->where('capacity', $request->capacity);
@@ -34,8 +42,17 @@ class RoomController extends Controller
             ->addColumn('options', function ($row) {
                 $act['edit'] = route('room.edit', ['room' => $row->id]);
                 $act['delete'] = route('room.destroy', ['room' => $row->id]);
+
                 $act['data'] = $row;
                 return view('pages.admin.rooms.options', $act)->render();
+            })
+            ->editColumn('availability', function ($statusRoom) {
+                if ($statusRoom->status) {
+                    $statusNow = 'Tidak Tersedia';
+                } else {
+                    $statusNow = 'Tersedia';
+                }
+                return $statusNow;
             })
             ->escapeColumns([])
             ->make(true);
@@ -65,17 +82,18 @@ class RoomController extends Controller
             $request->validate(
                 [
                     'room_name' => 'required|string',
-                    'facility' => 'required|string',
+                    'facility' => 'required|array',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',
                 ],
                 [],
 
             );
+            $facilityString = implode(', ', $request->input('facility', []));
 
             $room = new Room;
             $room->room_name = $request->room_name;
-            $room->facility = $request->facility;
+            $room->facility = $facilityString;
             $room->capacity = $request->capacity;
             $room->availability = $request->availability;
             $room->save();
@@ -124,7 +142,7 @@ class RoomController extends Controller
             $request->validate(
                 [
                     'room_name' => 'required|regex:/^[\pL\s]+$/u',
-                    'facility' => 'required',
+                    'facility' => 'required|array',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',
                 ],
@@ -132,9 +150,11 @@ class RoomController extends Controller
 
             );
 
+            $facilityString = implode(', ', $request->input('facility', []));
+
             $room = Room::find($id);
             $room->room_name = $request->room_name;
-            $room->facility = $request->facility;
+            $room->facility = $facilityString;
             $room->capacity = $request->capacity;
             $room->availability = $request->availability;
             $room->save();
