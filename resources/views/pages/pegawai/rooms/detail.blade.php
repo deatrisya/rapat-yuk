@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div id="calendar" class="card mb-4 col-md-6 p-2" data-book="{{ json_encode($events) }}">
+        <div id="calendar-detail-room" class="card mb-4 col-md-6 p-2" data-book="{{ json_encode($events) }}">
         </div>
         <script src="{{ asset('js/calendar.js') }}"></script>
         <!-- <div class="container">

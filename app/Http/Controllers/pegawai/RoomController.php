@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
