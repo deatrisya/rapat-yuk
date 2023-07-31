@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title','Tambah Booking')
+@section('page_title','Booking')
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">

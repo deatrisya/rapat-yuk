@@ -7,6 +7,7 @@ use App\Models\BookingList;
 use App\Models\Room;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
@@ -27,16 +28,13 @@ class DashboardController extends Controller
         $roles = User::where('role', 'Admin')->get();
         $jumlahPengguna = User::count();
         $jumlahRuang = Room::count();
-        $jumlahKetersediaan = Room::selectRaw('rooms.*, booking_lists.status')
-            ->leftJoin(
-                'booking_lists',
-                function ($leftJoin) {
-                    $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
-                        ->whereDate('booking_lists.date', '=', Carbon::now())
-                        ->where('booking_lists.status', '=', 'DISETUJUI');
-                }
-            )->where('booking_lists.status', '=', null)
-            ->groupBy('rooms.id')
+        $jumlahKetersediaan = DB::table('rooms')
+            ->leftJoin('booking_lists', function ($leftJoin) {
+                $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
+                    ->whereDate('booking_lists.date', '=', Carbon::now())
+                    ->where('booking_lists.status', '=', 'DISETUJUI');
+            })
+            ->whereNull('booking_lists.room_id')
             ->count();
 
         $book_lists = BookingList::select('description', 'start_time', 'end_time', 'date')->get();

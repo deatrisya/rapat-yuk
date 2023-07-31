@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title','Edit User')
+@section('page_title','User')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Master/</span> Edit Data User</h4>

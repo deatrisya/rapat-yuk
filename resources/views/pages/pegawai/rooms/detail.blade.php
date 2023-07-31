@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title','List Room')
+@section('page_title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-2 mb-3"><span class="text-muted fw-light"></span> Detail Ruangan</h4>

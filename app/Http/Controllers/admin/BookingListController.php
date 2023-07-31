@@ -27,7 +27,8 @@ class BookingListController extends Controller
     {
         $booking = BookingList::selectRaw('booking_lists.*, users.name as user_name, rooms.room_name as room_name')
             ->join('users', 'users.id', '=', 'booking_lists.user_id')
-            ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id');
+            ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id')
+            ->orderByDesc('booking_lists.created_at');
 
         if ($request->from_date) {
             $booking->whereDate('booking_lists.date', '>=', Carbon::parse($request->from_date));

@@ -10,7 +10,7 @@
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <div class="navbar-nav">
             <div class="nav-item fs-4">
-                Dashboard
+                @yield('page_title')
             </div>
         </div>
 
