@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Pegawai',
-                'email' => 'pegawai@egmail.com',
+                'email' => 'pegawai@gmail.com',
                 'password' => Hash::make('pegawai'),
                 'role' => 'pegawai',
             ]
