@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class RoomController extends Controller
 {
@@ -22,17 +21,8 @@ class RoomController extends Controller
 
     public function data(Request $request)
     {
-        // $room = Room::where('id', '!=', null)->orderBy('created_at', 'desc');
-        // $room = Room::selectRaw('rooms.*, booking_lists.status')
-        //     ->leftJoin(
-        //         'booking_lists',
-        //         function ($leftJoin) {
-        //             $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
-        //                 ->whereDate('booking_lists.date', '=', Carbon::now())
-        //                 ->where('booking_lists.status', '=', 'DISETUJUI');
-        //         }
-        //     )->groupBy('rooms.id');
-        $room = Room::select('rooms.*', DB::raw('COUNT(booking_lists.id) as booking_count'))
+        $room = Room::where('id', '!=', null)->orderBy('created_at', 'desc');
+        $room = Room::selectRaw('rooms.*, booking_lists.status')
             ->leftJoin(
                 'booking_lists',
                 function ($leftJoin) {
@@ -41,6 +31,15 @@ class RoomController extends Controller
                         ->where('booking_lists.status', '=', 'DISETUJUI');
                 }
             )->groupBy('rooms.id');
+        // $room = Room::select('rooms.*', DB::raw('COUNT(booking_lists.id) as booking_count'))
+        //     ->leftJoin(
+        //         'booking_lists',
+        //         function ($leftJoin) {
+        //             $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
+        //                 ->whereDate('booking_lists.date', '=', Carbon::now())
+        //                 ->where('booking_lists.status', '=', 'DISETUJUI');
+        //         }
+        //     )->groupBy('rooms.id');
         if ($request->capacity) {
             $room->where('capacity', $request->capacity);
         }
