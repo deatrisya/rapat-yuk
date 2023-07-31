@@ -1,7 +1,6 @@
 @extends('main.app')
 @section('title', 'Dashboard Pegawai')
-@section('text', 'Pesan Ruang')
-
+@section('page_title','Selamat datang, '. Auth::user()->name .'!')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -33,7 +32,7 @@
             @endcomponent
         </div> --}}
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card p-2">
                     <div id="calendar-dashboard" class="card-body p-2" data-book="{{ json_encode($events) }}"></div>
                 </div>

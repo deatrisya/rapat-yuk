@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     minute: "2-digit",
                     meridiem: false,
                 },
-                //contentHeight: 200,
+                aspectRatio: 1.75,
                 events: events,
             }
         );

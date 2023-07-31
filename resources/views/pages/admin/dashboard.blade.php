@@ -1,6 +1,6 @@
 @extends('main.app')
 @section('title','Dashboard Admin')
-@section('text', 'Setujui ✔')
+@section('page_title','Selamat datang, '. Auth::user()->name .'!')
 @section('content')
 <div class="container flex-grow-1 container-p-y">
     <div class="row">
