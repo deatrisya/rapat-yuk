@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->leftJoin('booking_lists', function ($leftJoin) {
                 $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
                     ->whereDate('booking_lists.date', '=', Carbon::now())
-                    ->where('booking_lists.status', '=', 'DISETUJUI');
+                    ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN']);
             })
             ->whereNull('booking_lists.room_id')
             ->count();

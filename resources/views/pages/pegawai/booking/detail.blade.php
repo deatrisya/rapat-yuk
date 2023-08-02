@@ -91,10 +91,6 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="photo">Foto</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="file" id="photo" name="photo" multiple disabled>
-                                        @error('description')
-                                        <small class="text-danger description">{{ $message }}</small>
-                                        @enderror
                                         @if ($booking->photo !== null)
                                             <img height="100px" width="100px" src="{{asset('storage/'.$booking->photo)}}">
                                         @endif
