@@ -98,10 +98,11 @@ class RoomController extends Controller
             $startTime = Carbon::parse($book_list->date . $book_list->start_time);
             $endTime = Carbon::parse($book_list->date . $book_list->end_time);
 
+
             return [
-                'title' => $book_list->description,
-                'start' => $startTime->toISOString(), // Convert to ISO format for fullcalendar
-                'end' => $endTime->toISOString(),
+
+                'start' => $startTime->toIso8601String(),
+                'end' => $endTime->toIso8601String(),
             ];
         });
         $facilities = explode(', ', $room->facility);
