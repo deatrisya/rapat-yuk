@@ -36,6 +36,7 @@
         <div class="col">
             <div class="card p-2">
                 <div id="calendar-dashboard" class="card-body p-2" data-book="{{ json_encode($events) }}"></div>
+            {{ $events }}
             </div>
         </div>
     </div>
