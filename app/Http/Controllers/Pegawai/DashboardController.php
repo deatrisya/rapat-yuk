@@ -39,7 +39,7 @@ class DashboardController extends Controller
 
         $events = BookingList::selectRaw('booking_lists.*, rooms.room_name')
             ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id')
-            ->where('status', 'DISETUJUI', 'DIGUNAKAN', 'SELESAI') // Memuat data ruang melalui relasi
+            ->whereIn('status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI']) // Memuat data ruang melalui relasi
             ->get()
             ->map(function ($book_list) {
                 $startTime = Carbon::parse($book_list->date . $book_list->start_time);
