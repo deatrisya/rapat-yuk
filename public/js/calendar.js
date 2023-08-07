@@ -89,15 +89,16 @@ document.addEventListener("DOMContentLoaded", function () {
         var events = [];
         book_lists.forEach(function (item) {
             events.push({
-                title: item.title,
                 start: item.start,
                 end: item.end,
+                
             });
         });
         var detailroomCalendarEl = new FullCalendar.Calendar(
             detailroomCalendarEl,
             {
-                timeZone: "UTC",
+                timeZone: "Local",
+                displayEventEnd: "true",
                 buttonText: {
                     today: "Hari ini",
                 },
@@ -108,9 +109,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     hour: "numeric",
                     minute: "2-digit",
                     meridiem: false,
+                    hour12: false,
                 },
                 contentHeight: 200,
                 events: events,
+                eventDisplay: "block",
+                eventDidMount: function (arg) {
+                    var eventEl = arg.el;
+                    var timeText = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    var tooltipText = timeText + ' - ' + arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    eventEl.setAttribute('title', tooltipText);
+                },
+
             }
         );
         detailroomCalendarEl.render();
