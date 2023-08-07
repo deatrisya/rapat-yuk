@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookingRoom;
 use App\Models\BookingList;
 use App\Models\Room;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
 
 class BookingListController extends Controller
 {
@@ -42,8 +45,7 @@ class BookingListController extends Controller
             ->orderByDesc('booking_lists.created_at')
             ->get();
 
-
-        return datatables($booking)
+            return datatables($booking)
             ->addIndexColumn()
             ->addColumn('options', function ($row) {
                 $act['edit'] = route('booking.edit', ['booking' => $row->id]);
@@ -65,6 +67,8 @@ class BookingListController extends Controller
             })
             ->escapeColumns([])
             ->make(true);
+
+
     }
 
     /**
@@ -110,6 +114,32 @@ class BookingListController extends Controller
             $booking->description = $request->description;
             $booking->status = 'Pending';
             $booking->save();
+
+            if ($booking) {
+                $user = auth()->user()->email;
+                $admin = User::where('role', 'Admin')->get()->pluck('email')->toArray();
+                $name_book = auth()->user()->name;
+                $date_book = Carbon::parse($booking->date)->format('d/m/Y');
+                $str_time_book = $booking->start_time;
+                $end_time_book = $booking->end_time;
+                $room_book = $booking->rooms->room_name;
+                $participant = $booking->qty_participants;
+                $consumption = $booking->food;
+                $annotation = $booking->description;
+                    $MailBook = [
+                    'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
+                    'name_book' => $name_book,
+                    'date_book' => $date_book,
+                    'str_time_book' => $str_time_book,
+                    'end_time_book' => $end_time_book,
+                    'room_book' => $room_book,
+                    'total_participant' => $participant,
+                    'total_consumption' => $consumption,
+                    'annotation' => $annotation
+                ];
+                $receiver = array_merge([$user], $admin);
+                Mail::to($receiver)->send(new BookingRoom($MailBook));
+            }
             return redirect()->route('booking.index')->with('toast_success', 'Booking Berhasil');
         } catch (\Throwable $th) {
             throw $th;
