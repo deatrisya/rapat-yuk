@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BookingList;
+use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DateTime;
+use PhpParser\Node\Stmt\Return_;
 
 class BookingListController extends Controller
 {
@@ -18,9 +20,10 @@ class BookingListController extends Controller
     public function index()
     {
         $booking = BookingList::all();
+        $room = Room::all();
         $from_date = Carbon::now()->startOfMonth()->format('Y-m-d');
         $to_date = Carbon::now()->endOfMonth()->format('Y-m-d');
-        return view('pages.admin.booking.index', compact('booking', 'from_date', 'to_date'));
+        return view('pages.admin.booking.index', compact('booking', 'from_date', 'to_date', 'room'));
     }
 
     public function data(Request $request)
@@ -39,6 +42,9 @@ class BookingListController extends Controller
         if ($request->status) {
             $booking->where('booking_lists.status', $request->status);
         }
+        if ($request->room) {
+            $booking->where('booking_lists.room_id', $request->room);
+        }
 
         return datatables($booking)
             ->addIndexColumn()
@@ -53,6 +59,10 @@ class BookingListController extends Controller
             })
             ->editColumn('room_name', function ($room) {
                 return $room->room_name;
+            })
+            ->editColumn('date', function ($date) {
+                $formatDate = Carbon::createFromFormat('Y-m-d', $date->date)->format('d-m-Y');
+                return $formatDate;
             })
             ->escapeColumns([])
             ->make(true);

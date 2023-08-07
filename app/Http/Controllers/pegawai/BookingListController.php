@@ -48,7 +48,6 @@ class BookingListController extends Controller
             ->addColumn('options', function ($row) {
                 $act['edit'] = route('booking.edit', ['booking' => $row->id]);
                 $act['show'] = route('booking.show', ['booking' => $row->id]);
-                // $act['cancel'] = route('booking.updateStatus',['booking' => $row->id]);
                 $act['data'] = $row;
 
                 return view('pages.pegawai.booking.options', $act)->render();
@@ -62,6 +61,10 @@ class BookingListController extends Controller
                 } else {
                     return '-';
                 }
+            })
+            ->editColumn('date', function ($date) {
+                $formatDate = Carbon::createFromFormat('Y-m-d', $date->date)->format('d-m-Y');
+                return $formatDate;
             })
             ->escapeColumns([])
             ->make(true);

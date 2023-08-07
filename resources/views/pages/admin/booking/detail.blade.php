@@ -40,7 +40,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-message">Durasi</label>
-                                    <input type="text" class="form-control" id="duration" name="duration" value="{{$duration}} Jam" readonly/>
+                                    <input type="text" class="form-control" id="duration" name="duration" value="{{$duration}}" readonly/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-message">Jumlah Peserta</label>
