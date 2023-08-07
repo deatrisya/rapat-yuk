@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BookingList;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -23,7 +24,10 @@ class DashboardController extends Controller
     public function index()
     {
         $roles = User::where('role', 'Pegawai')->get();
-        $jumlahPesanan = BookingList::where('status', '=', 'PENDING')->count();
+        $userId = Auth::id();
+        $jumlahPesanan = BookingList::where('status', '=', 'PENDING')
+            ->where('user_id', '=', $userId)
+            ->count();
         $jumlahKetersediaan = DB::table('rooms')
             ->leftJoin('booking_lists', function ($leftJoin) {
                 $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
@@ -33,13 +37,13 @@ class DashboardController extends Controller
             ->whereNull('booking_lists.room_id')
             ->count();
 
-            $events = BookingList::selectRaw('booking_lists.*, rooms.room_name')
-            ->join('rooms','rooms.id','=','booking_lists.room_id')
+        $events = BookingList::selectRaw('booking_lists.*, rooms.room_name')
+            ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id')
             ->where('status', 'DISETUJUI') // Memuat data ruang melalui relasi
             ->get()
             ->map(function ($book_list) {
-                $startTime = Carbon::parse($book_list->date.$book_list->start_time);
-                $endTime = Carbon::parse($book_list->date.$book_list->end_time);
+                $startTime = Carbon::parse($book_list->date . $book_list->start_time);
+                $endTime = Carbon::parse($book_list->date . $book_list->end_time);
                 $room_book = $book_list->rooms ? $book_list->rooms->room_name : null;
                 return [
                     'room' => $room_book,
