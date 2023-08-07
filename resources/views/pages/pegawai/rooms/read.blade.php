@@ -43,9 +43,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 col-lg-11 mx-auto mt-4">
-                        <button class="btn btn-primary " type="button">Booking</button>
+                    <div class="d-flex justify-content-center mt-4">
+                        <div class="d-grid gap-2 col-lg-6 mx-2">
+                            <a href="{{ route('booking.create') }}" class="btn btn-primary">Booking</a>
+                        </div>
+                        <div class="d-grid gap-2 col-lg-6 mx-2">
+                            <a href="{{route('room-pegawai.index')}}" class="btn btn-secondary">Kembali</a>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

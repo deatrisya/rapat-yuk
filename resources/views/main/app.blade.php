@@ -45,6 +45,7 @@
         const base_url = '{{ url('') }}';
         const web_token = '{{ csrf_token() }}';
     </script>
+    
 </head>
 
 <body>
