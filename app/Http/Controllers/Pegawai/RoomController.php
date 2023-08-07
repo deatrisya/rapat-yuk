@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookingList;
 use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -93,18 +94,18 @@ class RoomController extends Controller
             )->where('rooms.id', '=', $id)
             ->firstOrFail();
 
-        $book_list = $room->booking()->get();
-        $events = $book_list->map(function ($book_list) {
-            $startTime = Carbon::parse($book_list->date . $book_list->start_time);
-            $endTime = Carbon::parse($book_list->date . $book_list->end_time);
-
-
-            return [
-
-                'start' => $startTime->toIso8601String(),
-                'end' => $endTime->toIso8601String(),
-            ];
-        });
+        $events = BookingList::selectRaw('booking_lists.*, rooms.room_name')
+            ->join('rooms','rooms.id','=','booking_lists.room_id')
+            ->where('status', 'DISETUJUI') // Memuat data ruang melalui relasi
+            ->get()
+            ->map(function ($book_list) {
+                $startTime = Carbon::parse($book_list->date.$book_list->start_time);
+                $endTime = Carbon::parse($book_list->date.$book_list->end_time);
+                return [
+                    'start' => $startTime->toIso8601String(),
+                    'end' => $endTime->toIso8601String(),
+                ];
+            });
         $facilities = explode(', ', $room->facility);
         return view('pages.pegawai.rooms.detail', compact('room', 'facilities', 'events'));
     }
