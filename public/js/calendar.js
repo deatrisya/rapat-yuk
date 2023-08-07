@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var dashboardCalendarEl = new FullCalendar.Calendar(
             dashboardCalendarEl,
             {
-                timeZone: "Local",
+                //timeZone: "Local",
                 buttonText: {
                     today: "Hari ini",
                 },
@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var detailroomCalendarEl = new FullCalendar.Calendar(
             detailroomCalendarEl,
             {
+                //timeZone: "Local",
                 displayEventEnd: "true",
                 buttonText: {
                     today: "Hari ini",
