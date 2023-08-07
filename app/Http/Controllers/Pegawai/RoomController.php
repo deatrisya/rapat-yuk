@@ -88,7 +88,7 @@ class RoomController extends Controller
                 function ($leftJoin) {
                     $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
                         ->whereDate('booking_lists.date', '=', Carbon::now())
-                        ->where('booking_lists.status', '=', 'DISETUJUI', 'DIGUNAKAN', 'SELESAI');
+                        ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI']);
                 }
             )->where('rooms.id', '=', $id)
             ->firstOrFail();

@@ -91,13 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
             events.push({
                 start: item.start,
                 end: item.end,
-                
             });
         });
         var detailroomCalendarEl = new FullCalendar.Calendar(
             detailroomCalendarEl,
             {
-                timeZone: "Local",
                 displayEventEnd: "true",
                 buttonText: {
                     today: "Hari ini",
@@ -116,12 +114,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 eventDisplay: "block",
                 eventDidMount: function (arg) {
                     var eventEl = arg.el;
-                    var timeText = arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    var tooltipText = timeText + ' - ' + arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    var timeText = arg.event.start.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+                    var tooltipText =
+                        timeText +
+                        " - " +
+                        arg.event.end.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        });
 
-                    eventEl.setAttribute('title', tooltipText);
+                    eventEl.setAttribute("title", tooltipText);
                 },
-
             }
         );
         detailroomCalendarEl.render();
