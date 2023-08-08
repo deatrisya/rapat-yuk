@@ -141,7 +141,7 @@ class RoomController extends Controller
         try {
             $request->validate(
                 [
-                    'room_name' => 'required|regex:/^[\pL\s]+$/u',
+                    'room_name' => 'required|string',
                     'facility' => 'required|array',
                     'capacity' => 'required|numeric',
                     'availability' => 'required',

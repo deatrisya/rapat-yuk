@@ -16,7 +16,7 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             @component('components.card')
             @slot('bg_color', 'bg-info')
-            @slot('icon', 'bx bxs-home ')
+            @slot('icon', 'bx bxs-bookmark-alt')
             @slot('title', 'Pesanan Saya')
             @slot('nominal', $jumlahPesanan)
             @slot('ruang', 'Ruang Welirang')

@@ -51,6 +51,7 @@
         const web_token = '{{ csrf_token() }}';
 
     </script>
+    
 </head>
 
 <body>

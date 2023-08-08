@@ -27,7 +27,7 @@ class RoomController extends Controller
                 function ($leftJoin) {
                     $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
                         ->whereDate('booking_lists.date', '=', Carbon::now())
-                        ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN']);
+                        ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI']);
                 }
             )->groupBy('rooms.id');
         if ($request->capacity) {
@@ -88,7 +88,7 @@ class RoomController extends Controller
                 function ($leftJoin) {
                     $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
                         ->whereDate('booking_lists.date', '=', Carbon::now())
-                        ->where('booking_lists.status', '=', 'DISETUJUI');
+                        ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI']);
                 }
             )->where('rooms.id', '=', $id)
             ->firstOrFail();
@@ -98,10 +98,12 @@ class RoomController extends Controller
             $startTime = Carbon::parse($book_list->date . $book_list->start_time);
             $endTime = Carbon::parse($book_list->date . $book_list->end_time);
 
+
+
             return [
-                'title' => $book_list->description,
-                'start' => $startTime->toISOString(), // Convert to ISO format for fullcalendar
-                'end' => $endTime->toISOString(),
+
+                'start' => $startTime->toIso8601String(),
+                'end' => $endTime->toIso8601String(),
             ];
         });
         $facilities = explode(', ', $room->facility);

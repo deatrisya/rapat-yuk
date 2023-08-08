@@ -4,11 +4,9 @@ use App\Http\Controllers\Admin\BookingListController as AdminBookingListControll
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\RoomController as AdminRoomController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-
+use App\Http\Controllers\Pegawai\BookingListController as PegawaiBookingListController;
 use App\Http\Controllers\Pegawai\DashboardController as PegawaiDashboardController;
 use App\Http\Controllers\Pegawai\RoomController as PegawaiRoomController;
-use App\Http\Controllers\Pegawai\BookingListController as PegawaiBookingListController;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +45,4 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
     Route::put('/updateStatus/{id}', [PegawaiBookingListController::class, 'updateStatus'])->name('booking.updateStatus');
 });
+
