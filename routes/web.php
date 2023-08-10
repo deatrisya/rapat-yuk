@@ -35,10 +35,6 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/users-data', [AdminUserController::class, 'data']);
 });
 
-<<<<<<< HEAD
-// Rute untuk user
-=======
->>>>>>> 071520c07657b7febbec5e285897d053428219d8
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiDashboardController::class, 'index'])->name('pegawai.dashboard');
 
