@@ -1,3 +1,4 @@
+
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -7,23 +8,16 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- Search -->
-            {{-- <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                        aria-label="Search..." />
-                </div>
-            </div> --}}
-        <!-- /Search -->
+        <div class="navbar-nav">
+            <div class="nav-item fs-4">
+                @yield('page_title')
+            </div>
+        </div>
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
-            <!-- Place this tag where you want the button to render. -->
-            <li class="nav-item lh-1 me-3">
-                <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star" data-size="large" data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-            </li>
+
+            <!-- Tombol Pesan -->
+
 
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -42,33 +36,6 @@
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
-                                {{-- @if(isset($admin) && count($admin) > 0)
-                                @foreach ($admin as $adm)
-                                <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ $adm->name }}</span>
-                                    <small class="text-muted">{{ $adm->role }}</small>
-                                </div>
-                                @endforeach
-                                @else
-                                <p>No users found.</p>
-                                @endif --}}
-                                {{-- @if ($roles == 'admin')
-                                    @foreach ($admin as $adm)
-                                    <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block">{{ $adm->name }}</span>
-                                        <small class="text-muted">{{ $adm->role }}</small>
-                                    </div>
-                                    @endforeach
-
-                                @else
-                                @foreach ($pegawai as $pgw)
-                                <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ $pgw->name }}</span>
-                                    <small class="text-muted">{{ $pgw->role }}</small>
-                                </div>
-                                @endforeach
-                                @endif --}}
-
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
                                     <small class="text-muted">{{ Auth::user()->role }}</small>

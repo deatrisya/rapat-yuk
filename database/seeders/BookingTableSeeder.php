@@ -24,7 +24,7 @@ class BookingTableSeeder extends Seeder
                 'end_time' => '10:00:00',
                 'qty_participants' => '20',
                 'food' => '30',
-                'description' => 'Rapat',
+                'description' => 'Rapat 1',
                 'status' => 'PENDING',
             ],
             [
@@ -33,9 +33,9 @@ class BookingTableSeeder extends Seeder
                 'date' => '2023-07-30',
                 'start_time' => '09:00:00',
                 'end_time' => '10:00:00',
-                'qty_participants' => '20',
-                'food' => '30',
-                'description' => 'Rapat',
+                'qty_participants' => '10',
+                'food' => '20',
+                'description' => 'Rapat 2',
                 'status' => 'PENDING',
             ]
         ];

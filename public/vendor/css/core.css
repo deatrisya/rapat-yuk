@@ -64,6 +64,10 @@
   }
 }
 
+.note-btn.dropdown-toggle:after {
+content: none;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

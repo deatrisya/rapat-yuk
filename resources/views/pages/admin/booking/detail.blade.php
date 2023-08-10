@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title', 'Booking List')
+@section('page_title','Booking')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Booking/</span> Detail Pemesanan</h4>
@@ -39,7 +40,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-message">Durasi</label>
-                                    <input type="text" class="form-control" id="duration" name="duration" value="{{$duration}} Jam" readonly/>
+                                    <input type="text" class="form-control" id="duration" name="duration" value="{{$duration}}" readonly/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-message">Jumlah Peserta</label>
@@ -68,11 +69,13 @@
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Bukti Foto</label>
                             <br>
-                            <img src="" alt="bukti-foto" height="100px" width="100px">
+                            @if ($booking->photo !== null)
+                            <img height="100px" width="100px" src="{{asset('storage/'.$booking->photo)}}">
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Resume</label>
-                            <textarea class="form-control" readonly rows="10">{{ $booking->description }}</textarea>
+                            {!! $booking->resume !!}
                         </div>
                     </form>
                 </div>

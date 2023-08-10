@@ -23,12 +23,11 @@ class RedirectIfAuthenticated
 
         if (Auth::guard($guards)->check()) {
             $role = Auth::user()->role;
-            if ($role == "admin") {
-                return redirect('/');
-            } else {
+            if ($role == "Admin") {
+                return redirect(RouteServiceProvider::HOME);
+            } else if ($role == "Pegawai") {
                 return redirect('/dashboard');
             }
-            return redirect(RouteServiceProvider::HOME);
         }
 
         return $next($request);

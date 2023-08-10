@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\pegawai;
+namespace App\Http\Controllers\Pegawai;
+
 use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Carbon\Carbon;
@@ -20,9 +21,15 @@ class RoomController extends Controller
 
     public function data(Request $request)
     {
-        $room = Room::where('id', '!=', null)->orderBy('created_at', 'desc');
-
-
+        $room = Room::selectRaw('rooms.*, booking_lists.status')
+            ->leftJoin(
+                'booking_lists',
+                function ($leftJoin) {
+                    $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
+                        ->whereDate('booking_lists.date', '=', Carbon::now())
+                        ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI']);
+                }
+            )->groupBy('rooms.id');
         if ($request->capacity) {
             $room->where('capacity', $request->capacity);
         }
@@ -30,9 +37,17 @@ class RoomController extends Controller
         return datatables($room)
             ->addIndexColumn()
             ->addColumn('options', function ($row) {
-                $act['show'] = route('room-pegawai.show',['room_pegawai'=>$row->id]);
+                $act['show'] = route('room-pegawai.show', ['room_pegawai' => $row->id]);
                 $act['data'] = $row;
                 return view('pages.pegawai.rooms.options', $act)->render();
+            })
+            ->editColumn('availability', function ($statusRoom) {
+                if ($statusRoom->status) {
+                    $statusNow = 'Tidak Tersedia';
+                } else {
+                    $statusNow = 'Tersedia';
+                }
+                return $statusNow;
             })
             ->escapeColumns([])
             ->make(true);
@@ -46,7 +61,6 @@ class RoomController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -67,11 +81,23 @@ class RoomController extends Controller
      */
     public function show($id)
     {
-        $room = Room::findOrFail($id);
+        // $room = Room::findOrFail($id);
+        $room = Room::selectRaw('rooms.*, booking_lists.status')
+            ->leftJoin(
+                'booking_lists',
+                function ($leftJoin) {
+                    $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
+                        ->whereDate('booking_lists.date', '=', Carbon::now())
+                        ->whereIn('booking_lists.status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI']);
+                }
+            )->where('rooms.id', '=', $id)
+            ->firstOrFail();
+
         $book_list = $room->booking()->get();
-        $events = $book_list->map(function ($book_list){
-            $startTime = Carbon::parse($book_list->date.$book_list->start_time);
-            $endTime = Carbon::parse($book_list->date.$book_list->end_time);
+        $events = $book_list->map(function ($book_list) {
+            $startTime = Carbon::parse($book_list->date . $book_list->start_time);
+            $endTime = Carbon::parse($book_list->date . $book_list->end_time);
+
 
 
             return [
@@ -81,7 +107,7 @@ class RoomController extends Controller
             ];
         });
         $facilities = explode(', ', $room->facility);
-        return view('pages.pegawai.rooms.read', compact('room', 'facilities', 'events'));
+        return view('pages.pegawai.rooms.detail', compact('room', 'facilities', 'events'));
     }
 
     /**

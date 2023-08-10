@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title','Booking List')
+@section('page_title','Booking')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Transaksi /</span> List Booking</h4>
@@ -23,12 +24,21 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label for="floatingSelectGrid">Tanggal Awal</label>
-                    <input type="date" class="form-control" name="from_date" value="{{ $from_date }}" id="from_date">
+                    <label for="floatingSelectGrid">Pilih Ruangan</label>
+                    <select class="form-select" id="room" name="room">
+                        <option value="">Pilih Ruangan</option>
+                        @foreach ($room as $item)
+                            <option value="{{ $item->id }}">{{ $item->room_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <label for="floatingSelectGrid">Tanggal Awal</label>
+                    <input type="date" class="form-control" name="from_date" id="from_date">
+                </div>
+                <div class="col-md-2">
                     <label for="floatingSelectGrid">Tanggal Akhir</label>
-                    <input type="date" class="form-control" name="to_date" value="{{ $to_date }}" id="to_date">
+                    <input type="date" class="form-control" name="to_date" id="to_date">
                 </div>
                 <div class="col-md-2">
                     <button class="btn mb-0 btn-primary" onclick="setTable()">Cari</button>
@@ -80,6 +90,7 @@
                     from_date: $('#from_date').val(), //request:value
                     to_date: $('#to_date').val(),
                     status: $('#status').val(),
+                    room: $('#room').val(),
                 }
             },
             "columns": [{

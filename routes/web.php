@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\admin\RoomController as AdminRoomController;
-use App\Http\Controllers\pegawai\DashboardController as PegawaiDashboardController;
-use App\Http\Controllers\pegawai\RoomController as PegawaiRoomController;
+use App\Http\Controllers\Admin\BookingListController as AdminBookingListController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\RoomController as AdminRoomController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Pegawai\BookingListController as PegawaiBookingListController;
+use App\Http\Controllers\Pegawai\DashboardController as PegawaiDashboardController;
+use App\Http\Controllers\Pegawai\RoomController as PegawaiRoomController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Rute untuk admin
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('bookings', AdminBookingListController::class);
@@ -32,12 +35,18 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/users-data', [AdminUserController::class, 'data']);
 });
 
+<<<<<<< HEAD
 // Rute untuk user
+=======
+>>>>>>> 071520c07657b7febbec5e285897d053428219d8
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::get('/dashboard', [PegawaiDashboardController::class, 'index'])->name('pegawai.dashboard');
-    //Route::resource('/employee-booking', PegawaiBookingListController::class);
-    //Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
+
     Route::resource('/room-pegawai', PegawaiRoomController::class);
     Route::post('/rooms-pegawai-data', [PegawaiRoomController::class, 'data']);
-    //Route::resource('/employee-room', PegawaiRoomController::class);
+
+    Route::resource('employee/booking', PegawaiBookingListController::class);
+    Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
+    Route::put('/updateStatus/{id}', [PegawaiBookingListController::class, 'updateStatus'])->name('booking.updateStatus');
 });
+

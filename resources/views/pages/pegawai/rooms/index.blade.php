@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title','List Room')
+@section('page_title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> List Room Meeting</h4>
@@ -17,9 +18,9 @@
                     <div class="col-md-6 mb-6 mb-4 position-relative d-flex align-items-center">
                         <div class="d-flex align-items-center ">
                             <div class="me-3">
-                                <label for="floatingSelectGrid">Pilih Kapasistas</label>
+                                <label for="floatingSelectGrid">Pilih Kapasitas</label>
                                 <select class="form-select" id="capacity" name="capacity">
-                                    <option value="">-- Pilih Kapasistas --</option>
+                                    <option value="">Pilih Kapasitas</option>
                                     <option value="10"> 10 orang</option>
                                     <option value="20"> 20 orang</option>
                                     <option value="30"> 30 orang</option>
@@ -93,13 +94,6 @@
                 },
                 {
                     "data": "availability",
-                    "render": function(data, type, row) {
-                        if (data == 0) {
-                            return "Tidak Tersedia";
-                        } else {
-                            return "Tersedia";
-                        }
-                    }
                 },
                 {
                     "data": "options"

@@ -1,5 +1,6 @@
 @extends('main.app')
 @section('title','List Room')
+@section('page_title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-2 mb-3"><span class="text-muted fw-light"></span> Detail Ruangan</h4>
@@ -7,13 +8,13 @@
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header mb-0 d-flex align-items-center justify-content-between">
-                    @if($room->availability == 1)
+                    @if($room->status)
                     <div class="ms-auto">
-                        <span class="badge rounded-pill bg-success">Tersedia</span>
+                        <span class="badge rounded-pill bg-danger">Tidak Tersedia</span>
                     </div>
                     @else
                     <div class="ms-auto">
-                        <span class="badge rounded-pill bg-danger">Tidak Tersedia</span>
+                        <span class="badge rounded-pill bg-success">Tersedia</span>
                     </div>
                     @endif
                 </div>
@@ -56,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div id="calendar" class="card mb-4 col-md-6 p-2" data-book="{{ json_encode($events) }}">
+        <div id="calendar-detail-room" class="card mb-4 col-md-6 p-2" data-book="{{ json_encode($events) }}">
         </div>
         <script src="{{ asset('js/calendar.js') }}"></script>
         <!-- <div class="container">
