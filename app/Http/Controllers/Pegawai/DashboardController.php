@@ -28,6 +28,9 @@ class DashboardController extends Controller
         $jumlahPesanan = BookingList::where('status', '=', 'PENDING')
             ->where('user_id', '=', $userId)
             ->count();
+        $pesananDitolak = BookingList::where('status', '=', 'DITOLAK')
+            ->where('user_id', '=', $userId)
+            ->count();
         $jumlahKetersediaan = DB::table('rooms')
             ->leftJoin('booking_lists', function ($leftJoin) {
                 $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
@@ -53,6 +56,6 @@ class DashboardController extends Controller
                 ];
             });
         //Alert::toast('Selamat datang! 🙇‍♂️', 'success')->position('top-end')->autoClose(5000);
-        return view('pages.pegawai.dashboard', compact('roles', 'jumlahPesanan', 'events', 'jumlahKetersediaan'));
+        return view('pages.pegawai.dashboard', compact('roles', 'jumlahPesanan', 'events', 'jumlahKetersediaan', 'pesananDitolak'));
     }
 }
