@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
-use App\Mail\BookingRoom;
+use App\Mail\BookforAdmin;
+use App\Mail\BookforUser;
 use App\Models\BookingList;
 use App\Models\Room;
 use App\Models\User;
@@ -126,22 +127,36 @@ class BookingListController extends Controller
                 $str_time_book = $booking->start_time;
                 $end_time_book = $booking->end_time;
                 $room_book = $booking->rooms->room_name;
+                $room_facility = $booking->rooms->facility;
                 $participant = $booking->qty_participants;
                 $consumption = $booking->food;
                 $annotation = $booking->description;
-                    $MailBook = [
+                    $BookUser = [
                     'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
                     'name_book' => $name_book,
                     'date_book' => $date_book,
                     'str_time_book' => $str_time_book,
                     'end_time_book' => $end_time_book,
                     'room_book' => $room_book,
+                    'room_facility' => $room_facility,
                     'total_participant' => $participant,
                     'total_consumption' => $consumption,
                     'annotation' => $annotation
                 ];
-                $receiver = array_merge([$user], $admin);
-                Mail::to($receiver)->send(new BookingRoom($MailBook));
+                Mail::to($user)->send(new BookforUser($BookUser));
+                    $BookAdmin = [
+                    'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
+                    'name_book' => $name_book,
+                    'date_book' => $date_book,
+                    'str_time_book' => $str_time_book,
+                    'end_time_book' => $end_time_book,
+                    'room_book' => $room_book,
+                    'room_facility' => $room_facility,
+                    'total_participant' => $participant,
+                    'total_consumption' => $consumption,
+                    'annotation' => $annotation
+                ];
+                Mail::to($admin)->send(new BookforAdmin($BookAdmin));
             }
             return redirect()->route('booking.index')->with('toast_success', 'Booking Berhasil');
         } catch (\Throwable $th) {

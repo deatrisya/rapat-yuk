@@ -21,6 +21,6 @@
         Terima kasih atas perhatian Anda. Kami berharap dapat melayani Anda di kesempatan lain.
     </p>
     <p>Hormat kami,</p>
-    <p>Admin PLN</p>
+    <p>Admin {{ $MailReject['admin_name'] }}</p>
 </body>
 </html>

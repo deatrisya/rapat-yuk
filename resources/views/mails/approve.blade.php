@@ -45,13 +45,13 @@
     </table>
     <p>Kami akan mempersiapkan ruang rapat sesuai dengan permintaan Anda. <br>
         Semua fasilitas dan peralatan yang diperlukan akan tersedia untuk memastikan keberhasilan acara Anda, <br>
-        termasuk proyektor, layar, papan tulis, dan koneksi Wi-Fi yang stabil.</p>
+        seperti: {{ $MailApprove['room_facility'] }}.</p>
     <p>
         Harap tiba tepat waktu pada tanggal dan waktu yang telah Anda tentukan. <br>
         Jika Anda memiliki pertanyaan lebih lanjut atau perlu melakukan perubahan pada pemesanan, <br>
-        jangan ragu untuk menghubungi kami di (nomor telepon) atas nama {{ $MailApprove['admin_name'] }}
+        jangan ragu untuk menghubungi kami di (nomor telepon) atas nama (pemilik nomor telepon)
     </p>
     <p>Terima kasih,</p>
-    <p>Admin PLN</p>
+    <p>Admin {{ $MailApprove['admin_name'] }}</p>
 </body>
 </html>

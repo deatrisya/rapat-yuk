@@ -8,20 +8,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class BookingRoom extends Mailable
+class BookforUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $MailBook;
-
+    public $BookUser;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($MailBook)
+    public function __construct($BookUser)
     {
-        $this->MailBook=$MailBook;
+        $this->BookUser=$BookUser;
     }
 
     /**
@@ -44,7 +43,7 @@ class BookingRoom extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mails.booking',
+            view: 'mails.book_user',
         );
     }
 

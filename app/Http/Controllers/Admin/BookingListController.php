@@ -132,6 +132,7 @@ class BookingListController extends Controller
         $booking = BookingList::findOrFail($id);
         $booking->status = $request->status;
         $booking->save();
+        // email for allow
         if ($request->status == "DISETUJUI") {
             $email_user = $booking->users->email;
             $receiver = $booking->users->name;
@@ -139,10 +140,12 @@ class BookingListController extends Controller
             $str_time_book = $booking->start_time;
             $end_time_book = $booking->end_time;
             $room_book = $booking->rooms->room_name;
+            $room_facility = $booking->rooms->facility;
             $participant = $booking->qty_participants;
             $consumption = $booking->food;
             $annotation = $booking->description;
-            $admin_name = User::where('role', 'Admin')->pluck('name')->first();
+            $admin_email = User::where('role', 'Admin')->pluck('email')->toArray();
+            $admin_name = auth()->user()->name;
             $MailApprove = [
                 'title' => 'Pemberitahuan Konfirmasi Pemesanan Ruang Rapat' . ' - ' . $room_book . ' - ' . $date_book,
                 'receiver' => $receiver,
@@ -150,23 +153,31 @@ class BookingListController extends Controller
                 'str_time_book' => $str_time_book,
                 'end_time_book' => $end_time_book,
                 'room_book' => $room_book,
+                'room_facility' => $room_facility,
                 'total_participant' => $participant,
                 'total_consumption' => $consumption,
                 'annotation' => $annotation,
                 'admin_name' => $admin_name
             ];
-            Mail::to($email_user)->send(new ApproveRoom($MailApprove));
-        } elseif ($request->status == "DITOLAK") {
+            $recipient = array_merge([$email_user], $admin_email);
+            Mail::to($recipient)->send(new ApproveRoom($MailApprove));
+        }
+        // email for deny
+        elseif ($request->status == "DITOLAK") {
             $email_user = $booking->users->email;
             $receiver = $booking->users->name;
+            $admin_name = auth()->user()->name;
             $date_book = Carbon::parse($booking->date)->format('d/m/Y');
             $room_book = $booking->rooms->room_name;
+            $admin_email = User::where('role', 'Admin')->pluck('email')->toArray();
             $MailReject = [
                 'title' => 'Pemberitahuan Konfirmasi Pemesanan Ruang Rapat' . ' - ' . $room_book . ' - ' . $date_book,
                 'receiver' => $receiver,
                 'date_book' => $date_book,
+                'admin_name' => $admin_name
             ];
-            Mail::to($email_user)->send(new RejectRoom($MailReject));
+            $recipient = array_merge([$email_user], $admin_email);
+            Mail::to($recipient)->send(new RejectRoom($MailReject));
         }
         return redirect()->route('bookings.index');
     }
