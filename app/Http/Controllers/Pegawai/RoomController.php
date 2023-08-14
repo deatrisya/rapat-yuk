@@ -114,12 +114,16 @@ class RoomController extends Controller
             )->where('rooms.id', '=', $id)
             ->firstOrFail();
 
-        $book_list = $room->booking()->get();
-        $events = $book_list->map(function ($book_list) {
+//$book_list = $room->booking()->get();
+        $events = BookingList::selectRaw('booking_lists.*, rooms.room_name')
+        ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id')
+        ->whereIn('status', ['DISETUJUI', 'DIGUNAKAN', 'SELESAI'])
+        ->where('booking_lists.room_id', $id)
+        ->get()
+        ->map(function ($book_list) {
             $startTime = Carbon::parse($book_list->date . $book_list->start_time);
             $endTime = Carbon::parse($book_list->date . $book_list->end_time);
             return [
-
                 'start' => $startTime->toIso8601String(),
                 'end' => $endTime->toIso8601String(),
             ];
