@@ -22,8 +22,8 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             @component('components.card')
-            @slot('bg_color', 'bg-warning')
-            @slot('icon', 'bx bxs-user-account ')
+            @slot('bg_color', 'bg-danger')
+            @slot('icon', 'bx bxs-x-square')
             @slot('title', 'Pesanan Ditolak')
             @slot('nominal', $pesananDitolak)
             @endcomponent
