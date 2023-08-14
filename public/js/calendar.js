@@ -15,10 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 end: item.end,
                 extendedProps: {
                     description: item.title,
+                    roomId: item.room_id,
                 },
             });
         });
-        console.log(book_lists);
+
         var dashboardCalendarEl = new FullCalendar.Calendar(
             dashboardCalendarEl,
             {
@@ -37,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //     console.log(info.event.extendedProps);
                 // },
                 //expandRows: true,
+                //eventDisplay: "block",
                 dayMaxEventRows: true,
                 displayEventEnd: true,
                 views: {
@@ -50,10 +52,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 eventContent: function (info) {
                     var eventContent = document.createElement("div");
 
-                    var eventTitle = document.createElement("div");
-                    eventTitle.className = "fc-event-title";
-                    eventTitle.innerText = info.event.title;
-                    eventContent.appendChild(eventTitle);
+                    var titleText = info.event.extendedProps.roomId;
+                    switch (titleText) {
+                        case 1:
+                            var eventTitle = document.createElement("div");
+                            eventTitle.className =
+                                "fc-event-title bg-success rounded text-white text-center";
+                            eventTitle.innerText = info.event.title;
+                            eventContent.appendChild(eventTitle);
+                            break;
+                        case 2:
+                            var eventTitle = document.createElement("div");
+                            eventTitle.className =
+                                "fc-event-title bg-warning rounded text-white text-center";
+                            eventTitle.innerText = info.event.title;
+                            eventContent.appendChild(eventTitle);
+                            break;
+                        case 3:
+                            var eventTitle = document.createElement("div");
+                            eventTitle.className =
+                                "fc-event-title bg-info rounded text-white text-center";
+                            eventTitle.innerText = info.event.title;
+                            eventContent.appendChild(eventTitle);
+                            break;
+                        default:
+                            var eventTitle = document.createElement("div");
+                            eventTitle.className =
+                                "fc-event-title bg-danger rounded text-white text-center";
+                            eventTitle.innerText = info.event.title;
+                            eventContent.appendChild(eventTitle);
+                            break;
+                    }
 
                     var eventTime = document.createElement("div");
                     eventTime.className = "fc-event-time";

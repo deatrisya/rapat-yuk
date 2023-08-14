@@ -28,6 +28,9 @@ class DashboardController extends Controller
         $jumlahPesanan = BookingList::where('status', '=', 'PENDING')
             ->where('user_id', '=', $userId)
             ->count();
+        $pesananDitolak = BookingList::where('status', '=', 'DITOLAK')
+            ->where('user_id', '=', $userId)
+            ->count();
         $jumlahKetersediaan = DB::table('rooms')
             ->leftJoin('booking_lists', function ($leftJoin) {
                 $leftJoin->on('booking_lists.room_id', '=', 'rooms.id')
@@ -45,14 +48,16 @@ class DashboardController extends Controller
                 $startTime = Carbon::parse($book_list->date . $book_list->start_time);
                 $endTime = Carbon::parse($book_list->date . $book_list->end_time);
                 $room_book = $book_list->rooms ? $book_list->rooms->room_name : null;
+                $room_id = $book_list->room_id;
                 return [
                     'room' => $room_book,
+                    'room_id' => $room_id,
                     'title' => $book_list->description,
                     'start' => $startTime->toIso8601String(),
                     'end' => $endTime->toIso8601String(),
                 ];
             });
         //Alert::toast('Selamat datang! 🙇‍♂️', 'success')->position('top-end')->autoClose(5000);
-        return view('pages.pegawai.dashboard', compact('roles', 'jumlahPesanan', 'events', 'jumlahKetersediaan'));
+        return view('pages.pegawai.dashboard', compact('roles', 'jumlahPesanan', 'events', 'jumlahKetersediaan', 'pesananDitolak'));
     }
 }
