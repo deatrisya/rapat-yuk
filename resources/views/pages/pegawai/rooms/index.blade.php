@@ -3,7 +3,7 @@
 @section('page_title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> List Room Meeting</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Data Master / </span> List Ruangan</h4>
 
     <hr class="my-2" />
 
