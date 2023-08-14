@@ -146,7 +146,8 @@ class BookingListController extends Controller
             $participant = $booking->qty_participants;
             $consumption = $booking->food;
             $annotation = $booking->description;
-$admin_email = User::where('role', 'Admin')->pluck('email')->toArray();
+            $room_facility = $booking->rooms->facility;
+            $admin_email = User::where('role', 'Admin')->pluck('email')->toArray();
             $admin_name = auth()->user()->name;
             $MailApprove = [
                 'title' => 'Pemberitahuan Konfirmasi Pemesanan Ruang Rapat' . ' - ' . $room_book . ' - ' . $date_book,
@@ -157,6 +158,7 @@ $admin_email = User::where('role', 'Admin')->pluck('email')->toArray();
                 'room_book' => $room_book,
                 'total_participant' => $participant,
                 'total_consumption' => $consumption,
+                'room_facility' => $room_facility,
                 'annotation' => $annotation,
                 'admin_name' => $admin_name
             ];
