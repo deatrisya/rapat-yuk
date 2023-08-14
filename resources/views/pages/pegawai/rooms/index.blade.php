@@ -43,6 +43,7 @@
                             <th>Fasilitas</th>
                             <th>Kapasitas</th>
                             <th>Ketersediaan</th>
+                            <th>Jadwal Booking</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -54,7 +55,6 @@
         </div>
     </div>
     <!--/ Hoverable Table rows -->
-
 </div>
 @endsection
 
@@ -94,6 +94,36 @@
                 },
                 {
                     "data": "availability",
+                    "render": function(data, type, row) {
+                        if (data === 'Tersedia') {
+                            return '<span class="badge rounded-pill bg-label-success">' + data + '</span>';
+
+                        } else {
+                            return '<span class="badge rounded-pill bg-label-danger">' + data + '</span>';
+                        }
+                    }
+                },
+                {
+                    "data": "jadwal_booking",
+                    "render": function(data, type, row) {
+                        if (data !== '-') {
+                            const schedules = data.split('<br>'); // Memisahkan jadwal yang dipisahkan dengan '<br>'
+                            let badgeHtml = '';
+
+                            const badgeColors = [
+                                'bg-label-danger', 'bg-label-primary', 'bg-label-success',  'bg-label-warning', 
+                            ];
+
+                            schedules.forEach(function(schedule, index) {
+                                const badgeClass = badgeColors[index % badgeColors.length];
+                                badgeHtml += '<span class="badge rounded-pill ' + badgeClass + '">' + schedule + '</span><br>';
+                            });
+
+                            return badgeHtml;
+                        } else {
+                            return '-';
+                        }
+                    }
                 },
                 {
                     "data": "options"
