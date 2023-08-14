@@ -16,7 +16,6 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         Commands\BookingListExpired::class,
-        Commands\BookingListFinish::class,
         Commands\BookingListStart::class,
     ];
 
@@ -24,7 +23,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('booking:expired')->everyMinute();
         $schedule->command('booking:start')->everyMinute();
-        $schedule->command('booking:finish')->everyMinute();
     }
 
     /**
