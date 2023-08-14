@@ -21,6 +21,7 @@
                             <th>Waktu Selesai</th>
                             <th>Keperluan</th>
                             <th>Status</th>
+                            <th>Dokumen Rapat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -99,6 +100,9 @@
 
                     return result;
                     }
+                },
+                {
+                    "data":"document",
                 },
                 {
                     "data": "options",

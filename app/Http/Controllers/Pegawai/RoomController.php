@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookingList;
 use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class RoomController extends Controller
 
     public function data(Request $request)
     {
-        $room = Room::selectRaw('rooms.*, booking_lists.status')
+        $room = Room::select('rooms.*', 'booking_lists.status', 'booking_lists.start_time', 'booking_lists.end_time')
             ->leftJoin(
                 'booking_lists',
                 function ($leftJoin) {
@@ -49,9 +50,29 @@ class RoomController extends Controller
                 }
                 return $statusNow;
             })
+            ->addColumn('jadwal_booking', function ($row) {
+                if ($row->status === 'DISETUJUI' || $row->status === 'DIGUNAKAN') {
+                    $schedules = BookingList::where('room_id', $row->id)
+                        ->whereDate('date', Carbon::now())
+                        ->whereIn('status', ['DISETUJUI', 'DIGUNAKAN'])
+                        ->get();
+
+                    $scheduleStrings = [];
+                    foreach ($schedules as $schedule) {
+                        $startTime = Carbon::parse($schedule->start_time)->format('H:i');
+                        $endTime = Carbon::parse($schedule->end_time)->format('H:i');
+                        $scheduleStrings[] = "{$startTime} - {$endTime}";
+                    }
+
+                    return implode('<br>', $scheduleStrings);
+                } else {
+                    return '-';
+                }
+            })
             ->escapeColumns([])
             ->make(true);
     }
+
 
 
     /**
@@ -97,9 +118,6 @@ class RoomController extends Controller
         $events = $book_list->map(function ($book_list) {
             $startTime = Carbon::parse($book_list->date . $book_list->start_time);
             $endTime = Carbon::parse($book_list->date . $book_list->end_time);
-
-
-
             return [
 
                 'start' => $startTime->toIso8601String(),

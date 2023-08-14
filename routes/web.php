@@ -27,6 +27,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('bookings', AdminBookingListController::class);
     Route::post('/bookings-data', [AdminBookingListController::class, 'data']);
+    Route::get('/download-document/{id}', [AdminBookingListController::class, 'downloadFile'])->name('download.documents');
 
     Route::resource('room', AdminRoomController::class);
     Route::post('/room-data', [AdminRoomController::class, 'data']);
@@ -44,5 +45,6 @@ Route::middleware(['auth', 'role:Pegawai'])->group(function () {
     Route::resource('employee/booking', PegawaiBookingListController::class);
     Route::post('/booking-data', [PegawaiBookingListController::class, 'data']);
     Route::put('/updateStatus/{id}', [PegawaiBookingListController::class, 'updateStatus'])->name('booking.updateStatus');
-});
 
+    Route::get('/download-resume/{id}', [PegawaiBookingListController::class, 'downloadFile'])->name('download.document');
+});

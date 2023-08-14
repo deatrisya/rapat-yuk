@@ -10,7 +10,7 @@
     <h2>{{ $MailReject['title'] }}</h2>
     <h3>Kepada {{ $MailReject['receiver'] }}</h3>
     <p>Kami ingin memberitahukan bahwa kami telah meninjau pemesanan ruang rapat Anda yang diajukan untuk tanggal {{ $MailReject['date_book'] }}. <br>
-        Namun, dengan menyesal kami harus memberitahukan bahwa pemesanan Anda telah kami tolak. <br>
+        Namun, dengan menyesal kami harus memberitahukan bahwa pemesanan Anda telah kami tolak dengan alasan: {{ $MailReject['reason_rejected'] }} <br>
         Kami mohon maaf atas ketidaknyamanan yang mungkin timbul akibat keputusan ini. <br>
         Kami berharap Anda memahami bahwa keputusan ini diambil setelah pertimbangan yang matang untuk memastikan ketersediaan ruang rapat <br>
         dan fasilitas yang sesuai dengan kebutuhan Anda.

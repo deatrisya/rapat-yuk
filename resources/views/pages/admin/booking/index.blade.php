@@ -49,13 +49,15 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Ruangan</th>
                             <th>Penanggung Jawab</th>
+                            <th>Ruangan</th>
+                            <th>Pemesan</th>
                             <th>Tanggal</th>
                             <th>Waktu Mulai</th>
                             <th>Waktu Selesai</th>
                             <th>Keperluan</th>
                             <th>Status</th>
+                            <th>Alasan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -96,6 +98,10 @@
             "columns": [{
                     "data": "DT_RowIndex",
                     "name": "id",
+                },
+                {
+                    "data": "admin_name",
+                    "name": "admin.name",
                 },
                 {
                     "data": "room_name",
@@ -142,12 +148,15 @@
                     }
                 },
                 {
+                    "data": "reason"
+                },
+                {
                     "data": "options",
                 }
             ],
             "drawCallback": function(settings) {
-                initApproveButton();
-                initRejectButton();
+                // initApproveButton();
+                // initRejectButton();
             },
         });
     }

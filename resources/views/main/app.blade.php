@@ -51,7 +51,7 @@
         const web_token = '{{ csrf_token() }}';
 
     </script>
-    
+
 </head>
 
 <body>
@@ -71,11 +71,12 @@
 
     <script src="{{ asset('vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('vendor/libs/popper/popper.js') }}"></script>
-    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.js"></script>
     <script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-
     <script src="{{ asset('vendor/js/menu.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.5/datatables.min.js"></script>
+
     <!-- endbuild -->
 
     <!-- Vendors JS -->
@@ -86,6 +87,7 @@
 
     <!-- Page JS -->
     <script src="{{ asset('js/dashboards-analytics.js') }}"></script>
+    <script src="{{ asset('js/ui-popover.js') }}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -98,20 +100,40 @@
                 tabsize: 10,
                 height: 100,
                 toolbar: [
-                    ['style', ['style','bold', 'italic', 'underline', 'clear']],
+                    ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
                     ['font', ['strikethrough', 'superscript', 'subscript']],
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
-                    ['insert',['link']],
+                    ['insert', ['link']],
                     ['height', ['height']]
                 ],
             });
         });
+
     </script>
     <script>
-        function initApproveButton() {
-            $('.approve-button').click(function (event) {
+        // function initApproveButton() {
+        //     $('.approve-button').click(function (event) {
+        //         event.preventDefault();
+        //         var rowId = $(this).data('row-id');
+        //         Swal.fire({
+        //             title: 'Apakah kamu yakin?',
+        //             text: "Setujui permintaan ruang rapat",
+        //             icon: 'warning',
+        //             showCancelButton: true,
+        //             confirmButtonColor: '#52a807',
+        //             cancelButtonColor: '#8c8c8c',
+        //             confirmButtonText: 'Ya, setujui!'
+        //         }).then((result) => {
+        //             if (result.isConfirmed) {
+        //                 $('#approve-form-'+rowId).submit();
+        //             }
+        //         });
+        //     });
+        // }
+        $(document).ready(function () {
+            $(document).on('click', '.approve-button', function (event) {
                 event.preventDefault();
                 var rowId = $(this).data('row-id');
                 Swal.fire({
@@ -124,31 +146,51 @@
                     confirmButtonText: 'Ya, setujui!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#approve-form-'+rowId).submit();
+                        $(this).closest('form').submit();
                     }
                 });
             });
-        }
 
-        function initRejectButton() {
-            $('.reject-button').click(function (event) {
-                event.preventDefault();
-                var rowId = $(this).data('row-id');
-                Swal.fire({
-                    title: 'Apakah kamu yakin?',
-                    text: "Menolak permintaan ruang rapat",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#8c8c8c',
-                    confirmButtonText: 'Ya, tolak!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#reject-form-'+rowId).submit();
-                    }
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+                const confirmRejectButton = document.getElementById("confirmRejectButton");
+                const rejectForms = document.querySelectorAll(".reject-button");
+
+                // Handle "Tolak" button click to show the confirmation modal
+                rejectForms.forEach((form) => {
+                    form.addEventListener("click", function (event) {
+                        const bookingId = form.getAttribute("data-row-id");
+                        const modal = document.getElementById("rejectModal");
+                        const confirmButton = modal.querySelector(
+                            "#confirmRejectButton");
+                        confirmButton.addEventListener("click", function () {
+                            // Submit the form
+                            document.getElementById(`reject-form-${bookingId}`)
+                                .submit();
+                        });
+                    });
                 });
-            })
-        }
+        });
+
+        // function initRejectButton() {
+        //     $('.reject-button').click(function (event) {
+        //         event.preventDefault();
+        //         var rowId = $(this).data('row-id');
+        //         Swal.fire({
+        //             title: 'Apakah kamu yakin?',
+        //             text: "Menolak permintaan ruang rapat",
+        //             icon: 'warning',
+        //             showCancelButton: true,
+        //             confirmButtonColor: '#d33',
+        //             cancelButtonColor: '#8c8c8c',
+        //             confirmButtonText: 'Ya, tolak!'
+        //         }).then((result) => {
+        //             if (result.isConfirmed) {
+        //                 $('#reject-form-'+rowId).submit();
+        //             }
+        //         });
+        //     })
+        // }
 
         function initDeleteButton() {
             $('.delete-button').click(function (event) {
@@ -191,7 +233,7 @@
                     confirmButtonText: 'Ya, cancel!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#cancel-form-'+rowId).submit();
+                        $('#cancel-form-' + rowId).submit();
                     }
                 });
             })

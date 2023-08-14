@@ -45,6 +45,11 @@
             <td>:</td>
             <td>{{ $BookUser['annotation'] }}</td>
         </tr>
+        <tr>
+            <td>Kebutuhan IT </td>
+            <td>:</td>
+            <td>{{ $MailBook['equipment'] }}</td>
+        </tr>
     </table>
     <p>Fasilitas Ruang Rapat: <br>
         {{ $BookUser['room_facility'] }}.

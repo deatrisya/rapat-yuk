@@ -10,7 +10,6 @@
             @slot('icon', 'bx bxs-home-heart ')
             @slot('title', 'Ruang Tersedia')
             @slot('nominal', $jumlahKetersediaan)
-            @slot('ruang', 'Ruang Welirang')
             @endcomponent
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -19,18 +18,16 @@
             @slot('icon', 'bx bxs-bookmark-alt')
             @slot('title', 'Pesanan Saya')
             @slot('nominal', $jumlahPesanan)
-            @slot('ruang', 'Ruang Welirang')
             @endcomponent
         </div>
-        {{-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
             @component('components.card')
             @slot('bg_color', 'bg-warning')
             @slot('icon', 'bx bxs-user-account ')
-            @slot('title', 'lorem')
-            @slot('nominal', 'lorem')
-            @slot('ruang', 'Ruang Welirang')
+            @slot('title', 'Pesanan Ditolak')
+            @slot('nominal', $pesananDitolak)
             @endcomponent
-        </div> --}}
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card p-2">

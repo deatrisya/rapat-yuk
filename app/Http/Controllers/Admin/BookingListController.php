@@ -170,11 +170,13 @@ class BookingListController extends Controller
             $date_book = Carbon::parse($booking->date)->format('d/m/Y');
             $room_book = $booking->rooms->room_name;
             $admin_email = User::where('role', 'Admin')->pluck('email')->toArray();
+            $reason_rejected = $booking->reason;
             $MailReject = [
                 'title' => 'Pemberitahuan Konfirmasi Pemesanan Ruang Rapat' . ' - ' . $room_book . ' - ' . $date_book,
                 'receiver' => $receiver,
                 'date_book' => $date_book,
-                'admin_name' => $admin_name
+                'admin_name' => $admin_name,
+                'reason_rejected' => $reason_rejected
             ];
             $recipient = array_merge([$email_user], $admin_email);
             Mail::to($recipient)->send(new RejectRoom($MailReject));

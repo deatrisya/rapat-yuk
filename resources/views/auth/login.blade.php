@@ -11,9 +11,9 @@
                     <div class="app-brand justify-content-center">
                         <a href="#" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
-                               <img src="{{ asset('img/icons/pln/pln.png') }}" alt="" width="50px" height="50px">
+                               <img src="{{ asset('img/icons/pln/logo.png') }}" alt="" width="150px">
                             </span>
-                            <span class="app-brand-text demo text-body fw-bolder">Rapat Yuk</span>
+                            {{-- <span class="app-brand-text demo text-body fw-bolder">Rapat Yuk</span> --}}
                         </a>
                     </div>
                     <!-- /Logo -->

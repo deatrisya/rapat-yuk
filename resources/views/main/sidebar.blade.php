@@ -2,9 +2,9 @@
     <div class="app-brand demo">
         <a href="index.html" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('img/icons/pln/pln.png') }}" alt="logo" width="40px" height="40px">
+                <img src="{{ asset('img/icons/pln/logo.png') }}" alt="logo" width="100px">
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Rapat Yuk</span>
+            {{-- <span class="app-brand-text demo menu-text fw-bolder ms-2">Rapat Yuk</span> --}}
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

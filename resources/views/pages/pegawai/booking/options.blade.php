@@ -6,7 +6,9 @@
             @if ($data->status !== 'BATAL')
                 @method('PUT')
                 @csrf
-                <button class="btn btn-icon btn-danger cancel-button" data-row-id="{{ $data->id }}"><i class="bx bx-x"></i></button>
+                <button class="btn btn-icon btn-danger cancel-button" data-bs-toggle="tooltip" data-bs-offset="0,4"
+        data-bs-placement="bottom" data-bs-html="true"
+        title="Batalkan pemesanan" data-row-id="{{ $data->id }}"><i class="bx bx-x"></i> </button>
                 <input type="hidden" name="status" value="BATAL">
             @endif
         </form>
@@ -19,3 +21,6 @@
     </div>
     </div>
 </div>
+
+
+
