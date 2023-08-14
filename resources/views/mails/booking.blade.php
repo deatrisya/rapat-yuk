@@ -45,6 +45,11 @@
             <td>:</td>
             <td>{{ $MailBook['annotation'] }}</td>
         </tr>
+        <tr>
+            <td>Kebutuhan IT </td>
+            <td>:</td>
+            <td>{{ $MailBook['equipment'] }}</td>
+        </tr>
     </table>
     <p>Fasilitas Ruang Rapat: <br>
         AC, Meja, Kursi, Proyektor dan Akses Wifi.

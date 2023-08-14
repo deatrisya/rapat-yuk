@@ -20,49 +20,28 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="room_id">Nama Ruangan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-select" aria-label="Default select example" name="room_id"
-                                            required>
-                                            <option value="">Pilih Ruangan</option>
-                                            @foreach ($room as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ $booking->room_id == $item->id ? 'selected': ''}}>
-                                                {{ $item->room_name }}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                        @error('room_id')
-                                        <small class="text-danger room_id">{{ $message }}</small>
-                                        @enderror
+                                        <input type="text" class="form-control" id="room_id" name="room_id" readonly value="{{ $booking->rooms->room_name }}" />
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="date">Tanggal</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="date" name="date" required
+                                        <input type="date" class="form-control" id="date" name="date" readonly
                                             value="{{$booking->date}}" />
-                                        @error('date')
-                                        <small class="text-danger date">{{ $message }}</small>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="start_time">Waktu Mulai</label>
                                     <div class="col-sm-9">
                                         <input type="time" class="form-control" id="start_time" name="start_time"
-                                            required value="{{ $booking->start_time }}" />
-                                        @error('start_time')
-                                        <small class="text-danger start_time">{{ $message }}</small>
-                                        @enderror
+                                            readonly value="{{ $booking->start_time }}" />
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="end_time">Waktu Berakhir</label>
                                     <div class="col-sm-9">
-                                        <input type="time" class="form-control" id="end_time" name="end_time" required
+                                        <input type="time" class="form-control" id="end_time" name="end_time" readonly
                                             value="{{ $booking->end_time }}" />
-                                        @error('end_time')
-                                        <small class="text-danger end_time">{{ $message }}</small>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -72,30 +51,28 @@
                                         Peserta</label>
                                     <div class="col-sm-9">
                                         <input type="number" class="form-control" id="qty_participants"
-                                            name="qty_participants" required value="{{ $booking->qty_participants }}" />
-                                        @error('qty_participants')
-                                        <small class="text-danger qty_participants">{{ $message }}</small>
-                                        @enderror
+                                            name="qty_participants" readonly value="{{ $booking->qty_participants }}" />
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label" for="food">Jumlah Makanan</label>
+                                    <label class="col-sm-3 col-form-label" for="food">Konsumsi</label>
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="food" name="food" required
+                                        <input type="number" class="form-control" id="food" name="food" readonly
                                             value="{{ $booking->food }}" />
-                                        @error('food')
-                                        <small class="text-danger food">{{ $message }}</small>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="description">Deskripsi</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control" id="description" name="description"
-                                            required>{{ $booking->description }}</textarea>
-                                        @error('description')
-                                        <small class="text-danger description">{{ $message }}</small>
-                                        @enderror
+                                        <input class="form-control" id="description" name="description"
+                                            readonly value="{{ $booking->description }}">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="it_requirements">Kebutuhan IT</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" id="it_requirements" name="it_requirements"
+                                            readonly value="{{ $booking->it_requirements }}">
                                     </div>
                                 </div>
                             </div>
@@ -107,8 +84,12 @@
                                     <label class="col-sm-3 col-form-label" for="photo">Foto</label>
                                     <div class="col-sm-9">
                                         <input class="form-control" type="file" id="photo" name="photo" multiple>
-                                        @error('description')
-                                        <small class="text-danger description">{{ $message }}</small>
+                                        <div class="d-flex justify-content-between">
+                                            <small>Ukuran (Max: 2000Kb)</small>
+                                            <small>Ekstensi (.jpg,.jpeg,.png)</small>
+                                        </div>
+                                        @error('photo')
+                                        <small class="text-danger photo">{{ $message }}</small>
                                         @enderror
                                        @if ($booking->photo !== null)
                                            <img height="100px" width="100px" src="{{asset('storage/'.$booking->photo)}}">
@@ -116,12 +97,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group">
-                                    <label class="col-sm-3 col-form-label" for="resume">Catatan</label>
-                                    <textarea name="resume" class="form-control" id="summernote">{{ $booking->resume }}</textarea>
+                            <div class="col-md-6">
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="resume">Dokumen Rapat</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="file" id="resume" name="resume" multiple>
+                                        <div class="d-flex justify-content-between">
+                                            <small>Ekstensi (.doc,.docx,.pdf,.xls,.xlsx,.ppt,.pptx)</small>
+                                        </div>
+                                        @error('resume')
+                                        <small class="text-danger resume">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row float-end">
                             <div class="">

@@ -73,7 +73,7 @@
                                         Peserta</label>
                                     <div class="col-sm-9">
                                         <input type="number" class="form-control" id="qty_participants" name="qty_participants" required
-                                            value="{{ old('qty_participants') }}" />
+                                            value="{{ old('qty_participants') }}"  placeholder="10"/>
                                         @error('qty_participants')
                                         <small class="text-danger qty_participants">{{ $message }}</small>
                                         @enderror
@@ -82,7 +82,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="food">Jumlah Makanan</label>
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="food" name="food" required value="{{ old('food') }}" />
+                                        <input type="number" class="form-control" id="food" name="food" required value="{{ old('food') }}" placeholder="10"/>
                                         @error('food')
                                         <small class="text-danger food">{{ $message }}</small>
                                         @enderror
@@ -91,10 +91,20 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="description">Deskripsi</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control" id="description" name="description"
-                                            required>{{ old('description') }}</textarea>
+                                        <input class="form-control" id="description" name="description"
+                                            required placeholder="Rapat Anggaran" value="{{ old('description') }}">
                                         @error('description')
                                         <small class="text-danger description">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="it_requirements">Kebutuhan IT</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" id="it_requirements" name="it_requirements"
+                                            required placeholder="Kabel, Handycam, Proyektor" value="{{ old('it_requirements') }}">
+                                        @error('it_requirements')
+                                        <small class="text-danger it_requirements">{{ $message }}</small>
                                         @enderror
                                     </div>
                                 </div>

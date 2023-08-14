@@ -17,7 +17,7 @@ class BookingList extends Model
         'start_time',
         'end_time',
         'description',
-        'status',
+        'it_requirements',
     ];
 
     public function users()

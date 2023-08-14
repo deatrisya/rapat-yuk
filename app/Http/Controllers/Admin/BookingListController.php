@@ -11,6 +11,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class BookingListController extends Controller
@@ -31,9 +32,10 @@ class BookingListController extends Controller
 
     public function data(Request $request)
     {
-        $booking = BookingList::selectRaw('booking_lists.*, users.name as user_name, rooms.room_name as room_name')
+        $booking = BookingList::selectRaw('booking_lists.*, users.name as user_name, rooms.room_name as room_name, admin.name as admin_name')
             ->join('users', 'users.id', '=', 'booking_lists.user_id')
             ->join('rooms', 'rooms.id', '=', 'booking_lists.room_id')
+            ->leftJoin('users as admin', 'admin.id', '=', 'booking_lists.admin_id')
             ->orderByDesc('booking_lists.created_at');
 
         if ($request->from_date) {
@@ -66,6 +68,9 @@ class BookingListController extends Controller
             ->editColumn('date', function ($date) {
                 $formatDate = Carbon::createFromFormat('Y-m-d', $date->date)->format('d-m-Y');
                 return $formatDate;
+            })
+            ->editColumn('admin_name', function ($admin) {
+                return $admin->admin_name ?? '-';
             })
             ->escapeColumns([])
             ->make(true);
@@ -131,7 +136,7 @@ class BookingListController extends Controller
         // dd($request->all());
         $booking = BookingList::findOrFail($id);
         $booking->status = $request->status;
-        $booking->save();
+        $booking->admin_id = $request->admin_id;
         if ($request->status == "DISETUJUI") {
             $email_user = $booking->users->email;
             $receiver = $booking->users->name;
@@ -157,6 +162,8 @@ class BookingListController extends Controller
             ];
             Mail::to($email_user)->send(new ApproveRoom($MailApprove));
         } elseif ($request->status == "DITOLAK") {
+            $booking->reason = $request->reason;
+            // dd($booking->reason);
             $email_user = $booking->users->email;
             $receiver = $booking->users->name;
             $date_book = Carbon::parse($booking->date)->format('d/m/Y');
@@ -168,6 +175,8 @@ class BookingListController extends Controller
             ];
             Mail::to($email_user)->send(new RejectRoom($MailReject));
         }
+        $booking->save();
+
         return redirect()->route('bookings.index');
     }
 
@@ -183,5 +192,15 @@ class BookingListController extends Controller
         $booking->delete();
 
         return response()->json(['success' => true]);
+    }
+
+    public function downloadFile($id)
+    {
+        $booking = BookingList::findOrFail($id);
+        if ($booking->resume) {
+            $path = storage_path('app/public/' . $booking->resume);
+            return response()->download($path, 'Dokumen Rapat_' . $booking->date . '.' . pathinfo($path, PATHINFO_EXTENSION));
+        }
+        return back()->with('toast_error', 'Dokumen tidak ditemukan.');
     }
 }

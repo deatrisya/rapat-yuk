@@ -13,7 +13,7 @@
                     <h5 class="mb-0">Data Pemesanan Ruangan Rapat</h5>
                 </div>
                 <div class="card-body">
-                    <form>
+                    {{-- <form> --}}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -52,34 +52,89 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-message">Keterangan</label>
-                                    <textarea id="basic-default-message" class="form-control" readonly>{{ $booking->description }}</textarea>
+                                    <input id="basic-default-message" class="form-control" value="{{ $booking->description }}" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-message">Kebutuhan IT</label>
+                                    <input id="basic-default-message" class="form-control" value="{{ $booking->it_requirements }}" readonly>
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('bookings.index') }}" class="btn btn-primary">Kembali</a>
-                    </form>
-                </div>
-            </div>
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Hasil Meeting</h5>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Bukti Foto</label>
-                            <br>
-                            @if ($booking->photo !== null)
-                            <img height="100px" width="100px" src="{{asset('storage/'.$booking->photo)}}">
+                        <div class="button d-flex justify-content-end">
+                            @if ($booking->status == 'PENDING')
+                            <div class="btn-action d-flex">
+                                <form action="{{ route('bookings.update',$booking->id) }}" method="POST"
+                                    id="approve-form">
+                                    @method('PUT')
+                                    @csrf
+                                    <button type="submit" class="btn btn-success px-3 mb-0 me-2 approve-button" data-row-id="{{ $booking->id }}"><i class="bx bx-check"
+                                            aria-hidden="true"></i>Setujui</button>
+                                    <input type="hidden" name="status" value="DISETUJUI">
+                                    <input type="hidden" name="admin_id" value="{{ Auth::user()->id}}">
+                                </form>
+                                <button class="btn btn-danger px-3 mb-0 reject-button" data-bs-toggle="modal" data-bs-target="#modalCenter"><i class="bx bx-x" aria-hidden="true"></i>Tolak</button>
+                            </div>
                             @endif
+                            <a href="{{ route('bookings.index') }}" class="btn btn-secondary ms-2">Kembali</a>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Resume</label>
-                            {!! $booking->resume !!}
-                        </div>
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
+            @if ($booking->status =='DISETUJUI' || $booking->status =='SELESAI')
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Hasil Meeting</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Bukti Foto</label>
+                                <br>
+                                @if ($booking->photo !== null)
+                                <img width="500px" src="{{asset('storage/'.$booking->photo)}}">
+                                @else
+                                <p>Belum ada foto</p>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Dokumen Rapat</label>
+                                <br>
+                               <a href="{{ route('download.documents', $booking->id) }}" class="btn btn-success"><i class="bx bxs-file"></i>Download Dokumen</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle">Apakah kamu yakin menolak permintaan ini?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="{{ route('bookings.update',$booking->id) }}">
+                @method('PUT')
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">Alasan Penolakan</label>
+                            <input type="text" id="reason" class="form-control" name="reason" placeholder="Alasan Penolakan" required />
+                            <input type="hidden" name="status" value="DITOLAK">
+                            <input type="hidden" name="admin_id" value="{{ Auth::user()->id}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-danger">Ya, Tolak</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

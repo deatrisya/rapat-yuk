@@ -45,7 +45,7 @@ class BookingListController extends Controller
             ->orderByDesc('booking_lists.created_at')
             ->get();
 
-            return datatables($booking)
+        return datatables($booking)
             ->addIndexColumn()
             ->addColumn('options', function ($row) {
                 $act['edit'] = route('booking.edit', ['booking' => $row->id]);
@@ -68,10 +68,14 @@ class BookingListController extends Controller
                 $formatDate = Carbon::createFromFormat('Y-m-d', $date->date)->format('d-m-Y');
                 return $formatDate;
             })
+            ->addColumn('document', function ($rows) {
+                // $act['document'] = route('', ['booking' => $rows->id]);
+                $act['data'] = $rows;
+
+                return view('pages.pegawai.booking.document', $act)->render();
+            })
             ->escapeColumns([])
             ->make(true);
-
-
     }
 
     /**
@@ -93,6 +97,7 @@ class BookingListController extends Controller
                     'qty_participants' => 'required|integer',
                     'food' => 'required|integer',
                     'description' => 'required|string',
+                    'it_requirements' => 'required|string'
                 ],
             );
 
@@ -115,6 +120,7 @@ class BookingListController extends Controller
             $booking->qty_participants = $request->qty_participants;
             $booking->food = $request->food;
             $booking->description = $request->description;
+            $booking->it_requirements = $request->it_requirements;
             $booking->status = 'Pending';
             $booking->save();
 
@@ -129,7 +135,8 @@ class BookingListController extends Controller
                 $participant = $booking->qty_participants;
                 $consumption = $booking->food;
                 $annotation = $booking->description;
-                    $MailBook = [
+                $equipment = $booking->it_requirements;
+                $MailBook = [
                     'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
                     'name_book' => $name_book,
                     'date_book' => $date_book,
@@ -138,7 +145,8 @@ class BookingListController extends Controller
                     'room_book' => $room_book,
                     'total_participant' => $participant,
                     'total_consumption' => $consumption,
-                    'annotation' => $annotation
+                    'annotation' => $annotation,
+                    'equipment' => $equipment
                 ];
                 $receiver = array_merge([$user], $admin);
                 Mail::to($receiver)->send(new BookingRoom($MailBook));
@@ -195,33 +203,9 @@ class BookingListController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $validator = Validator::make(
-                $request->all(),
-                [
-                    'date' => 'required|date',
-                    'start_time' => 'required',
-                    'end_time' => 'required',
-                    'qty_participants' => 'required|integer',
-                    'food' => 'required|integer',
-                    'description' => 'required|string',
-                ],
-            );
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-            $bookingDateTime = $request->date . ' ' . $request->start_time;
 
-            if (Carbon::parse($bookingDateTime)->lt(Carbon::now())) {
-                return redirect()->back()->with('toast_error', 'Tanggal atau waktu booking harus lebih dari waktu saat ini hari ini.')->withInput();
-            }
             $booking = BookingList::findOrFail($id);
-            $booking->room_id = $request->room_id;
-            $booking->date = $request->date;
-            $booking->start_time = $request->start_time;
-            $booking->end_time = $request->end_time;
-            $booking->qty_participants = $request->qty_participants;
-            $booking->food = $request->food;
-            $booking->description = $request->description;
+            $statusChanged = false;
 
             if ($request->hasFile('photo')) {
                 $request->validate(
@@ -234,11 +218,28 @@ class BookingListController extends Controller
                 }
                 $image_name = $request->file('photo')->store('photo', 'public');
                 $booking->photo = $image_name;
+                $statusChanged = true;
             }
-            if ($request->resume) {
-                $booking->resume = $request->resume;
-            }
+            if ($request->hasFile('resume')) {
+                $request->validate([
+                    'resume' => 'mimes:doc,docx,pdf,xls,xlsx,ppt,pptx',
+                ]);
 
+                if ($booking->resume && Storage::exists('public/' . $booking->resume)) {
+                    Storage::delete('public/' . $booking->resume);
+                }
+
+                $file = $request->file('resume');
+                $fileExtension = $file->getClientOriginalExtension();
+                $fileName = 'resume_' . now()->format('Ymd_His') . '_' . uniqid() . '_' . $fileExtension;
+
+                $resume_name = $file->storeAs('resume', $fileName, 'public');
+                $booking->resume = $resume_name;
+                $statusChanged = true;
+            }
+            if ($statusChanged && $booking->photo && $booking->resume) {
+                $booking->status = 'SELESAI';
+            }
             $booking->save();
             return redirect()->route('booking.index')->with('toast_success', 'Booking Berhasil Diperbarui');
         } catch (\Throwable $e) {
@@ -254,5 +255,15 @@ class BookingListController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function downloadFile($id)
+    {
+        $booking = BookingList::findOrFail($id);
+        if ($booking->resume) {
+            $path = storage_path('app/public/' . $booking->resume);
+            return response()->download($path, 'Dokumen Rapat_' . $booking->date . '.' . pathinfo($path, PATHINFO_EXTENSION));
+        }
+        return back()->with('toast_error', 'Dokumen tidak ditemukan.');
     }
 }
