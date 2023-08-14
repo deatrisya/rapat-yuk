@@ -48,8 +48,10 @@ class DashboardController extends Controller
                 $startTime = Carbon::parse($book_list->date . $book_list->start_time);
                 $endTime = Carbon::parse($book_list->date . $book_list->end_time);
                 $room_book = $book_list->rooms ? $book_list->rooms->room_name : null;
+                $room_id = $book_list->room_id;
                 return [
                     'room' => $room_book,
+                    'room_id' => $room_id,
                     'title' => $book_list->description,
                     'start' => $startTime->toIso8601String(),
                     'end' => $endTime->toIso8601String(),
