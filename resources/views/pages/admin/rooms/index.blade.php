@@ -83,6 +83,14 @@
                 },
                 {
                     "data": "availability",
+                    "render": function(data, type, row) {
+                    if (data === 'Tersedia') {
+                        return '<span class="badge rounded-pill bg-label-success">' + data + '</span>';
+                        
+                    } else {
+                        return '<span class="badge rounded-pill bg-label-danger">' + data + '</span>';
+                    }
+                }
                 },
                 {
                     "data": "options"
