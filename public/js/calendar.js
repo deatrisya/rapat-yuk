@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
             detailroomCalendarEl,
             {
                 //timeZone: "Local",
+                dayMaxEventRows: true,
                 displayEventEnd: "true",
                 buttonText: {
                     today: "Hari ini",
@@ -139,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     meridiem: false,
                     hour12: false,
                 },
-                contentHeight: 200,
+                contentHeight: 500,
                 events: events,
                 eventDisplay: "block",
                 eventDidMount: function (arg) {
