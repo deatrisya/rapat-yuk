@@ -126,7 +126,6 @@ class BookingListController extends Controller
             $booking->save();
 
             if ($booking) {
-                $user = auth()->user()->email;
                 $admin = User::where('role', 'Admin')->get()->pluck('email')->toArray();
                 $name_book = auth()->user()->name;
                 $date_book = Carbon::parse($booking->date)->format('d/m/Y');
@@ -138,7 +137,7 @@ class BookingListController extends Controller
                 $consumption = $booking->food;
                 $annotation = $booking->description;
                 $equipment = $booking->it_requirements;
-                $BookUser = [
+                $BookData = [
                     'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
                     'name_book' => $name_book,
                     'date_book' => $date_book,
@@ -151,23 +150,12 @@ class BookingListController extends Controller
                     'annotation' => $annotation,
                     'equipment' => $equipment
                 ];
-                Mail::to($user)->send(new BookforUser($BookUser));
-                Mail::failures();
-                    $BookAdmin = [
-                    'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
-                    'name_book' => $name_book,
-                    'date_book' => $date_book,
-                    'str_time_book' => $str_time_book,
-                    'end_time_book' => $end_time_book,
-                    'room_book' => $room_book,
-                    'room_facility' => $room_facility,
-                    'total_participant' => $participant,
-                    'total_consumption' => $consumption,
-                    'annotation' => $annotation,
-                    'equipment' => $equipment
-                ];
-                Mail::to($admin)->send(new BookforAdmin($BookAdmin));
-                Mail::failures();
+                $user = auth()->user()->email;
+                Mail::to($user)->send(new BookforUser($BookData));
+                foreach ($admin as $adminEmail) {
+                    Mail::to($adminEmail)->send(new BookforAdmin($BookData));
+                }
+
             }
             return redirect()->route('booking.index')->with('toast_success', 'Booking Berhasil');
         } catch (\Throwable $th) {

@@ -12,15 +12,15 @@ class BookforUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $BookUser;
+    public $BookData;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($BookUser)
+    public function __construct($BookData)
     {
-        $this->BookUser=$BookUser;
+        $this->BookData=$BookData;
     }
 
     /**
