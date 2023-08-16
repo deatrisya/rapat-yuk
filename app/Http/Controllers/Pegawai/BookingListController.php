@@ -148,9 +148,11 @@ class BookingListController extends Controller
                     'room_facility' => $room_facility,
                     'total_participant' => $participant,
                     'total_consumption' => $consumption,
-                    'annotation' => $annotation
+                    'annotation' => $annotation,
+                    'equipment' => $equipment
                 ];
                 Mail::to($user)->send(new BookforUser($BookUser));
+                Mail::failures();
                     $BookAdmin = [
                     'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
                     'name_book' => $name_book,
@@ -165,6 +167,7 @@ class BookingListController extends Controller
                     'equipment' => $equipment
                 ];
                 Mail::to($admin)->send(new BookforAdmin($BookAdmin));
+                Mail::failures();
             }
             return redirect()->route('booking.index')->with('toast_success', 'Booking Berhasil');
         } catch (\Throwable $th) {
