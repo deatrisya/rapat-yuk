@@ -144,7 +144,7 @@ class RoomController extends Controller
                     'room_name' => 'required|string',
                     'facility' => 'required|array',
                     'capacity' => 'required|numeric',
-                    'availability' => 'required',
+                    
                 ],
                 [],
 
