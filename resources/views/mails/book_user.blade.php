@@ -48,7 +48,7 @@
         <tr>
             <td>Kebutuhan IT </td>
             <td>:</td>
-            <td>{{ $BookUser['equipment'] }}</td>
+            <td>{{ $BookData['equipment'] }}</td>
         </tr>
     </table>
     <p>Fasilitas Ruang Rapat: <br>
