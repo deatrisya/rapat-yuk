@@ -12,16 +12,16 @@ class BookforAdmin extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $BookAdmin;
+    public $BookData;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($BookAdmin)
+    public function __construct($BookData)
     {
-        $this->BookAdmin=$BookAdmin;
+        $this->BookData=$BookData;
     }
 
     /**

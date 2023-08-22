@@ -17,7 +17,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="inputState">Nama Ruangan</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="room_name" id="room_name" value="{{ $room->room_name }}" placeholder="Ruang Rapat Bromo" />
+                                <input type="text" class="form-control" name="room_name" id="room_name" value="{{ $room->room_name }}" placeholder="Ruang Rapat Bromo" required />
                                 @error('room_name')
                                 <small class="text-danger room_name">{{ $message }}</small>
                                 @enderror
@@ -78,7 +78,7 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-phone">Kapasitas</label>
                             <div class="col-sm-3">
-                                <input type="text" id="basic-default-phone" class="form-control phone-mask" name="capacity" id="capacity" value="{{ $room->capacity }}" placeholder="6" aria-describedby="basic-default-phone" />
+                                <input type="text" id="basic-default-phone" class="form-control phone-mask" name="capacity" id="capacity" value="{{ $room->capacity }}" placeholder="6" aria-describedby="basic-default-phone" required />
                                 @error('capacity')
                                 <small class="text-danger capacity">{{ $message }}</small>
                                 @enderror
