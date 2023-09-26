@@ -85,21 +85,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-phone">Ketersediaan</label>
-                            <div class="col-sm-10">
-                                <div class="form-check">
-                                    <input name="availability" class="form-check-input" type="radio" value="1" id="availability" @if ($room->availability == "Tersedia") selected @endif checked />
-                                    <label class="form-check-label" for="availability"> Tersedia </label>
-                                </div>
-                                <div class="mt-2"></div>
-                                <div class="form-check">
-                                    <input name="availability" class="form-check-input" type="radio" value="0" id="availability" @if ($room->availability == " Tidak Tersedia") selected @endif/>
-                                    <label class="form-check-label" for="availability"> Tidak Tersedia </label>
-                                </div>
-                                @error('availability')
-                                <small class="text-danger availability">{{ $message }}</small>
-                                @enderror
-                            </div>
+                            
                             <div class="col-sm-10 mt-3">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <a href="{{route('room.index')}}" class="btn btn-secondary">Kembali</a>
@@ -111,5 +97,4 @@
         </div>
     </div>
 </div>
-
 @endsection
