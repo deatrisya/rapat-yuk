@@ -28,7 +28,7 @@
                     <select class="form-select" id="room" name="room">
                         <option value="">Pilih Ruangan</option>
                         @foreach ($room as $item)
-                            <option value="{{ $item->id }}">{{ $item->room_name }}</option>
+                        <option value="{{ $item->id }}">{{ $item->room_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -44,8 +44,8 @@
                     <button class="btn mb-0 btn-primary" onclick="setTable()">Cari</button>
                 </div>
             </div>
-        <div class="table-responsive text-nowrap">
-            <table class="table table-hover" id="bookingData">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-hover" id="bookingData">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -55,9 +55,8 @@
                             <th>Tanggal</th>
                             <th>Waktu Mulai</th>
                             <th>Waktu Selesai</th>
-                            <th>Keperluan</th>
                             <th>Status</th>
-                            <th>Alasan</th>
+                            <th>Jenis Rapat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -76,6 +75,7 @@
 @section('main-js')
 <script type="text/javascript">
     setTable();
+
     function setTable() {
         const booking_id = $('booking_id').val();
         $('#bookingData').DataTable({
@@ -121,9 +121,6 @@
                     "data": "end_time",
                 },
                 {
-                    "data": "description",
-                },
-                {
                     "data": "status",
                     render: function (data, type, row) {
                         let result = `<span class="badge bg-label-`;
@@ -148,13 +145,25 @@
                     }
                 },
                 {
-                    "data": "reason"
+                    "data": "online_meeting",
+                    render: function(data, type, row) {
+                        let result = `<span class="badge bg-label-`;
+                        if(data ==='Offline')
+                            result += `primary`;
+                        else
+                            result += `success`;
+
+                        result += `">${data}</span>`;
+
+                        return result;
+                    }
                 },
+
                 {
                     "data": "options",
                 }
             ],
-            "drawCallback": function(settings) {
+            "drawCallback": function (settings) {
                 // initApproveButton();
                 // initRejectButton();
             },

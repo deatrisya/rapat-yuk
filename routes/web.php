@@ -34,6 +34,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 
     Route::resource('users', AdminUserController::class);
     Route::post('/users-data', [AdminUserController::class, 'data']);
+
+    Route::put('/updateLink/{id}', [AdminBookingListController::class, 'updateLink'])->name('bookings.updateLink');
 });
 
 Route::middleware(['auth', 'role:Pegawai'])->group(function () {

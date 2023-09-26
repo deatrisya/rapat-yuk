@@ -97,7 +97,8 @@ class BookingListController extends Controller
                     'qty_participants' => 'required|integer',
                     'food' => 'required|integer',
                     'description' => 'required|string',
-                    'it_requirements' => 'required|string'
+                    'it_requirements' => 'required|string',
+                    'online_meetings' => 'boolean',
                 ],
             );
 
@@ -121,6 +122,7 @@ class BookingListController extends Controller
             $booking->food = $request->food;
             $booking->description = $request->description;
             $booking->it_requirements = $request->it_requirements;
+            $booking->online_meeting = $request->meeting_option;
             $booking->status = 'Pending';
             $booking->save();
 
@@ -136,6 +138,7 @@ class BookingListController extends Controller
                 $consumption = $booking->food;
                 $annotation = $booking->description;
                 $equipment = $booking->it_requirements;
+                $meeting_option = $booking->online_meeting == 1 ? "Online" : "Offline";
                 $MailBook = [
                     'title' => 'Pemberitahuan pemesanan ruang rapat' . ' - ' . $room_book . ' - ' . $date_book,
                     'name_book' => $name_book,
@@ -146,7 +149,8 @@ class BookingListController extends Controller
                     'total_participant' => $participant,
                     'total_consumption' => $consumption,
                     'annotation' => $annotation,
-                    'equipment' => $equipment
+                    'equipment' => $equipment,
+                    'meeting_option' => $meeting_option,
                 ];
                 $receiver = array_merge([$user], $admin);
                 Mail::to($receiver)->send(new BookingRoom($MailBook));
@@ -169,7 +173,9 @@ class BookingListController extends Controller
     {
         $booking =  BookingList::find($id);
         $room = Room::all();
-        return view('pages.pegawai.booking.detail', compact('booking', 'room'));
+        $meetingOption = ($booking && $booking->online_meeting == 1) ? 'Online' : 'Offline';
+        $linkZoom = ($meetingOption == 'Online' && $booking) ? $booking->link_zoom : null;
+        return view('pages.pegawai.booking.detail', compact('booking', 'room', 'meetingOption', 'linkZoom'));
     }
 
     /**

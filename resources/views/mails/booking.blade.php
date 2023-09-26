@@ -50,6 +50,11 @@
             <td>:</td>
             <td>{{ $MailBook['equipment'] }}</td>
         </tr>
+        <tr>
+            <td>Jenis Rapat</td>
+            <td>:</td>
+            <td>{{ $MailBook['meeting_option'] }}</td>
+        </tr>
     </table>
     <p>Fasilitas Ruang Rapat: <br>
         AC, Meja, Kursi, Proyektor dan Akses Wifi.
