@@ -27,7 +27,9 @@
                                             required>
                                             <option value="">Pilih Ruangan</option>
                                             @foreach ($room as $item)
-                                            <option value="{{ $item->id }}" {{ old('room_id') == $item->id ? 'selected' : '' }}>{{ $item->room_name }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ old('room_id') == $item->id ? 'selected' : '' }}>
+                                                {{ $item->room_name }}</option>
                                             @endforeach
                                         </select>
                                         @error('room_id')
@@ -65,24 +67,25 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="col-md-6">
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="qty_participants">Jumlah
                                         Peserta</label>
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="qty_participants" name="qty_participants" required
-                                            value="{{ old('qty_participants') }}"  placeholder="10"/>
+                                        <input type="number" class="form-control" id="qty_participants"
+                                            name="qty_participants" required value="{{ old('qty_participants') }}"
+                                            placeholder="10" />
                                         @error('qty_participants')
                                         <small class="text-danger qty_participants">{{ $message }}</small>
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="food">Jumlah Makanan</label>
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="food" name="food" required value="{{ old('food') }}" placeholder="10"/>
+                                        <input type="number" class="form-control" id="food" name="food" required
+                                            value="{{ old('food') }}" placeholder="10" />
                                         @error('food')
                                         <small class="text-danger food">{{ $message }}</small>
                                         @enderror
@@ -91,8 +94,8 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="description">Deskripsi</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" id="description" name="description"
-                                            required placeholder="Rapat Anggaran" value="{{ old('description') }}">
+                                        <input class="form-control" id="description" name="description" required
+                                            placeholder="Rapat Anggaran" value="{{ old('description') }}">
                                         @error('description')
                                         <small class="text-danger description">{{ $message }}</small>
                                         @enderror
@@ -101,11 +104,30 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label" for="it_requirements">Kebutuhan IT</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" id="it_requirements" name="it_requirements"
-                                            required placeholder="Kabel, Handycam, Proyektor" value="{{ old('it_requirements') }}">
+                                        <input class="form-control" id="it_requirements" name="it_requirements" required
+                                            placeholder="Kabel, Handycam, Proyektor"
+                                            value="{{ old('it_requirements') }}">
                                         @error('it_requirements')
                                         <small class="text-danger it_requirements">{{ $message }}</small>
                                         @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="meeting_option">Opsi Rapat</label>
+                                    <div class="col-sm-9 d-flex">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input name="meeting_option" class="form-check-input" type="radio"
+                                                    value="0" checked />
+                                                <label class="form-check-label" for="defaultRadio2"> Offline </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input name="meeting_option" class="form-check-input" type="radio" value="1" />
+                                                <label class="form-check-label" for="defaultRadio2"> Online </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

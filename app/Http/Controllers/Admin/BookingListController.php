@@ -71,6 +71,13 @@ class BookingListController extends Controller
             ->editColumn('admin_name', function ($admin) {
                 return $admin->admin_name ?? '-';
             })
+            ->editColumn('online_meeting', function ($meeting) {
+                if ($meeting->online_meeting) {
+                    return 'Online';
+                } else {
+                    return 'Offline';
+                }
+            })
             ->escapeColumns([])
             ->make(true);
     }
@@ -190,6 +197,17 @@ class BookingListController extends Controller
         return redirect()->route('bookings.index');
     }
 
+    public function updateLink(Request $request, $id)
+    {
+        $request->validate([
+            'link_zoom' => 'nullable|url', // Validasi input sebagai tautan
+        ]);
+
+        $booking = BookingList::findOrFail($id);
+        $booking->link_zoom = $request->link_zoom;
+        $booking->save();
+        return redirect()->route('bookings.index')->with('toast_success', 'Link Zoom Berhasil Ditambahkan');
+    }
     /**
      * Remove the specified resource from storage.
      *
