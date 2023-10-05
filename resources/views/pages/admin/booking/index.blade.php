@@ -110,6 +110,14 @@
                 {
                     "data": "user_name",
                     "name": "users.name",
+                    "render": function(data, type, full, meta) {
+                        if (type === 'display') {
+                            var words = data.split(' ');
+                            var firstName = words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase();
+                        return firstName;
+                        }
+                    return data;
+                    }
                 },
                 {
                     "data": "date",

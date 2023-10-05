@@ -3,7 +3,7 @@
 @section('page_title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Form Edit Data Ruangan</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Edit Data Ruangan</h4>
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
@@ -40,6 +40,10 @@
                                             <input class="form-check-input" type="checkbox" value="Papan Tulis" id="facility" name="facility[]" @if(in_array('Papan Tulis', explode(', ', $room->facility))) checked @endif/>
                                             <label class="form-check-label" for="facility"> Papan Tulis </label>
                                         </div>
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" value="Kamera Video Conference" id="facility" name="facility[]" @if(in_array('Kamera Video Conference', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Kamera Video Conference </label>
+                                        </div>
                                     </div>
                                     <div class="ms-4">
                                         <div class="form-check ">
@@ -54,19 +58,27 @@
                                             <input class="form-check-input" type="checkbox" value="Proyektor" id="facility" name="facility[]" @if(in_array('Proyektor', explode(', ', $room->facility))) checked @endif/>
                                             <label class="form-check-label" for="facility"> Proyektor </label>
                                         </div>
-                                    </div>
-                                    <div class="ms-4">
                                         <div class="form-check ">
                                             <input class="form-check-input" type="checkbox" value="Spidol" id="facility" name="facility[]" @if(in_array('Spidol', explode(', ', $room->facility))) checked @endif/>
                                             <label class="form-check-label" for="facility"> Spidol </label>
+                                        </div>
+                                    </div>
+                                    <div class="ms-4">
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" value="Layar LCD" id="facility" name="facility[]" @if(in_array('Layar LCD', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Layar LCD </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Penghapus Papan" id="facility" name="facility[]" @if(in_array('Penghapus Papan', explode(', ', $room->facility))) checked @endif/>
                                             <label class="form-check-label" for="facility"> Penghapus Papan </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Jam" id="facility" name="facility[]" @if(in_array('Jam', explode(', ', $room->facility))) checked @endif/>
-                                            <label class="form-check-label" for="facility"> Jam </label>
+                                            <input class="form-check-input" type="checkbox" value="Komputer" id="facility" name="facility[]" @if(in_array('Komputer', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Komputer </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Microphone" id="facility" name="facility[]" @if(in_array('Microphone', explode(', ', $room->facility))) checked @endif/>
+                                            <label class="form-check-label" for="facility"> Microphone </label>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +113,7 @@
                                 @enderror
                             </div>
                             <div class="col-sm-10 mt-3">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                                 <a href="{{route('room.index')}}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </div>

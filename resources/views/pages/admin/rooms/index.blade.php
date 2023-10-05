@@ -53,6 +53,7 @@
 @section('main-js')
 <script>
     setTable();
+
     function setTable(params) {
         $('#roomData').DataTable({
             "processing": true,
@@ -76,7 +77,26 @@
                     "data": "room_name"
                 },
                 {
-                    "data": "facility"
+                    "data": "facility",
+                    "render": function (data, type, full, meta) {
+                        if (type === 'display') {
+                            var facilities = data.split(', ');
+                            var facilityHTML = '';
+                            var facilitiesPerRow = 4;
+
+                            for (var i = 0; i < facilities.length; i++) {
+                                facilityHTML += facilities[i];
+                                if (i < facilities.length - 1) {
+                                    facilityHTML += ', ';
+                                }
+                                if ((i + 1) % facilitiesPerRow === 0 || i === facilities.length - 1) {
+                                    facilityHTML += '<br>';
+                                }
+                            }
+                            return facilityHTML;
+                        }
+                        return data;
+                    }
                 },
                 {
                     "data": "capacity"
@@ -88,7 +108,7 @@
                     "data": "options"
                 }
             ],
-            "drawCallback": function(settings) {
+            "drawCallback": function (settings) {
                 initDeleteButton();
             },
         });

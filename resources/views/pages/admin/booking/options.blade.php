@@ -2,7 +2,7 @@
     <div class="ms-auto">
         <a class="btn btn-info px-3 mb-0 me-2" href="{{ $show }}"><i class="bx bx-show"
                 aria-hidden="true"></i>Detail</a>
-        @if ($data->online_meeting && !$data->link_zoom)
+        @if ($data->online_meeting && !$data->link_zoom && $data->status == 'DISETUJUI')
             <a href="#" class="btn btn-icon btn-danger }} px-3 mb-0 me-2"
                 data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true" title="Link Zoom" data-bs-toggle="modal"
                 data-bs-target="#modalCenter-{{ $data->id }}"><i class='bx bx-link-alt'></i></a>
@@ -18,7 +18,7 @@
                 <h5 class="modal-title" id="modalCenterTitle">Masukkan Link Zoom</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="POST" action="{{ route('bookings.updateLink',$data->id) }}">
+            <form method="POST" action="{{ route('bookings.updateLink'  ,$data->id) }}">
                 @method('PUT')
                 @csrf
                 <div class="modal-body">
