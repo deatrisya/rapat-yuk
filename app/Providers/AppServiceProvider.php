@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\BookingList;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('main.sidebar', function ($view) {
+            $pendingBookingCount = BookingList::where('status', 'PENDING')->count();
+            $view->with('pendingBookingCount', $pendingBookingCount);
+        });
     }
 }

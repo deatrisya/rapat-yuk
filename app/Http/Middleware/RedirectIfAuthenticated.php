@@ -19,11 +19,14 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $guards = empty($guards) ? null : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+        if (Auth::guard($guards)->check()) {
+            $role = Auth::user()->role;
+            if ($role == "Admin") {
                 return redirect(RouteServiceProvider::HOME);
+            } else if ($role == "Pegawai") {
+                return redirect('/dashboard');
             }
         }
 
