@@ -57,28 +57,28 @@ document.addEventListener("DOMContentLoaded", function () {
                         case 1:
                             var eventTitle = document.createElement("div");
                             eventTitle.className =
-                                "fc-event-title bg-success rounded text-white text-center";
+                                "fc-event-title bg-success rounded text-white text-center px-2";
                             eventTitle.innerText = info.event.title;
                             eventContent.appendChild(eventTitle);
                             break;
                         case 2:
                             var eventTitle = document.createElement("div");
                             eventTitle.className =
-                                "fc-event-title bg-warning rounded text-white text-center";
+                                "fc-event-title bg-warning rounded text-white text-center px-2";
                             eventTitle.innerText = info.event.title;
                             eventContent.appendChild(eventTitle);
                             break;
                         case 3:
                             var eventTitle = document.createElement("div");
                             eventTitle.className =
-                                "fc-event-title bg-info rounded text-white text-center";
+                                "fc-event-title bg-info rounded text-white text-center px-2";
                             eventTitle.innerText = info.event.title;
                             eventContent.appendChild(eventTitle);
                             break;
                         default:
                             var eventTitle = document.createElement("div");
                             eventTitle.className =
-                                "fc-event-title bg-danger rounded text-white text-center";
+                                "fc-event-title bg-danger rounded text-white text-center px-2";
                             eventTitle.innerText = info.event.title;
                             eventContent.appendChild(eventTitle);
                             break;
