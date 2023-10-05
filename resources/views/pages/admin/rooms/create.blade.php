@@ -3,7 +3,7 @@
 @section('page_title','List Room')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Form Tambah Data Ruangan</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Tambah Data Ruangan</h4>
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
@@ -39,6 +39,10 @@
                                             <input class="form-check-input" type="checkbox" value="Papan Tulis" id="facility" name="facility[]" />
                                             <label class="form-check-label" for="facility"> Papan Tulis </label>
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Kamera Video Conference" id="facility" name="facility[]" />
+                                            <label class="form-check-label" for="facility"> Kamera Video Conference </label>
+                                        </div>
                                     </div>
                                     <div class="ms-4">
                                         <div class="form-check ">
@@ -53,19 +57,27 @@
                                             <input class="form-check-input" type="checkbox" value="Proyektor" id="facility" name="facility[]" />
                                             <label class="form-check-label" for="facility"> Proyektor </label>
                                         </div>
-                                    </div>
-                                    <div class="ms-4">
                                         <div class="form-check ">
                                             <input class="form-check-input" type="checkbox" value="Spidol" id="facility" name="facility[]" />
                                             <label class="form-check-label" for="facility"> Spidol </label>
                                         </div>
+                                    </div>
+                                    <div class="ms-4">
+                                       <div class="form-check ">
+                                        <input class="form-check-input" type="checkbox" value="Layar LCD" id="facility" name="facility[]" />
+                                        <label class="form-check-label" for="facility"> Layar LCD </label>
+                                    </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="Penghapus Papan" id="facility" name="facility[]" />
                                             <label class="form-check-label" for="facility"> Penghapus Papan </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="Jam" id="facility" name="facility[]" />
-                                            <label class="form-check-label" for="facility"> Jam </label>
+                                            <input class="form-check-input" type="checkbox" value="Komputer" id="facility" name="facility[]" />
+                                            <label class="form-check-label" for="facility"> Komputer </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="Microphone" id="facility" name="facility[]" />
+                                            <label class="form-check-label" for="facility"> Microphone </label>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +112,7 @@
                                 @enderror
                             </div>
                             <div class="col-sm-10 mt-3">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                                 <a href="{{route('room.index')}}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </div>

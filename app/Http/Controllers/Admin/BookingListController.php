@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ApproveRoom;
+use App\Mail\LinkOnlineRoom;
 use App\Mail\RejectRoom;
 use App\Models\BookingList;
 use App\Models\Room;
@@ -206,6 +207,34 @@ class BookingListController extends Controller
         $booking = BookingList::findOrFail($id);
         $booking->link_zoom = $request->link_zoom;
         $booking->save();
+
+        $email_user = $booking->users->email;
+        $receiver = $booking->users->name;
+        $date_book = Carbon::parse($booking->date)->format('d/m/Y');
+        $str_time_book = $booking->start_time;
+        $end_time_book = $booking->end_time;
+        $room_book = $booking->rooms->room_name;
+        $participant = $booking->qty_participants;
+        $consumption = $booking->food;
+        $annotation = $booking->description;
+        $admin_name = User::where('role', 'Admin')->pluck('name')->first();
+        $link_zoom = $booking->link_zoom;
+
+        $MailLink = [
+            'title' => 'Pemberitahuan Informasi Link Video Conference Pemesanan Ruang Rapat', '-' . $room_book . '-' . $date_book,
+            'receiver' => $receiver,
+            'date_book' => $date_book,
+            'str_time_book' => $str_time_book,
+            'end_time_book' => $end_time_book,
+            'room_book' => $room_book,
+            'total_participant' => $participant,
+            'total_consumption' => $consumption,
+            'annotation' => $annotation,
+            'admin_name' => $admin_name,
+            'link_zoom' => $link_zoom,
+        ];
+        Mail::to($email_user)->send(new LinkOnlineRoom($MailLink));
+
         return redirect()->route('bookings.index')->with('toast_success', 'Link Zoom Berhasil Ditambahkan');
     }
     /**

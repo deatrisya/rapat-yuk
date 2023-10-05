@@ -60,7 +60,7 @@
 
 @section('main-js')
 <script>
-    document.getElementById('filterBtn').addEventListener('click', function() {
+    document.getElementById('filterBtn').addEventListener('click', function () {
         filterDate(); // Panggil fungsi filterDate() ketika tombol "Filter" ditekan
     });
 
@@ -87,7 +87,26 @@
                     "data": "room_name"
                 },
                 {
-                    "data": "facility"
+                    "data": "facility",
+                    "render": function (data, type, full, meta) {
+                        if (type === 'display') {
+                            var facilities = data.split(', ');
+                            var facilityHTML = '';
+                            var facilitiesPerRow = 4;
+
+                            for (var i = 0; i < facilities.length; i++) {
+                                facilityHTML += facilities[i];
+                                if (i < facilities.length - 1) {
+                                    facilityHTML += ', ';
+                                }
+                                if ((i + 1) % facilitiesPerRow === 0 || i === facilities.length - 1) {
+                                    facilityHTML += '<br>';
+                                }
+                            }
+                            return facilityHTML;
+                        }
+                        return data;
+                    }
                 },
                 {
                     "data": "capacity"
@@ -132,5 +151,6 @@
         });
     }
     filterDate();
+
 </script>
 @endsection

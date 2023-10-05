@@ -57,6 +57,19 @@
                 },
                 {
                     "data": "name",
+                    "render": function(data, type, full, meta) {
+                        if (type === 'display') {
+                            var words = data.split(' '); // Membagi nama menjadi kata-kata
+
+                            // Mengubah huruf pertama dari setiap kata menjadi huruf besar
+                            var formattedName = words.map(function(word) {
+                            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                            }).join(' ');
+
+                            return formattedName;
+                        }
+                    return data;
+                    }
                 },
                 {
                     "data": "email",
